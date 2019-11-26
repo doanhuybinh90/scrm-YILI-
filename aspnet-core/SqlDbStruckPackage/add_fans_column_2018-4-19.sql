@@ -1,0 +1,1 @@
+ALTER TABLE dbo.MpFans ADD LastCustomerServiceId INT DEFAULT 0,LastCustomerServiceOpenId NVARCHAR(100) NULL

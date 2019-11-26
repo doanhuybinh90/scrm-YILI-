@@ -1,0 +1,76 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel("选择音频"))
+<div class="modal-body">
+    <form name="DataForm2" role="form" novalidate class="form-validation">
+        <table id="FormTable2" class="display table table-striped table-bordered table-hover dt-responsive ">
+            <thead>
+                <tr>
+                    <th>@L("Actions")</th>
+                    <th>名称</th>
+                </tr>
+            </thead>
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+    var _modalManager;
+    function selectItem(filePathOrUrl, mediaID,title) {
+        if ($("input[name=PreviewImgUrl]"))
+            $("input[name=PreviewImgUrl]").val(filePathOrUrl);
+        if ($("input[name=MediaId]"))
+            $("input[name=MediaId]").val(mediaID);
+        if ($("input[name=VoiceName]"))
+            $("input[name=VoiceName]").val(title);
+        _modalManager.close();
+        _modalManager.setBusy(false);
+    }
+    (function () {
+        app.modals.MpVoiceSelector = function () {
+            var _$formTable = $('#FormTable2');
+            var dataService = abp.services.app.mpMediaVoice;
+            this.init = function (modalManager) {
+                _modalManager = modalManager;
+            };
+            var dataTable = _$formTable.DataTable({
+                paging: true,
+                serverSide: true,
+                processing: true,
+                listAction: {
+                    ajaxFunction: dataService.getAll,
+                    inputFilter: function () {
+                        return createRequestParams();
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, full, meta) {
+
+                            return '<a href="javascript:selectItem(\'' + data.filePathOrUrl + '\',\'' + data.mediaID + '\',\''+data.title+'\')"><i class="fa fa-check"></i>选择</a>';
+                        }
+                    }
+
+                    , {
+                        targets: 1,
+                        data: "title"
+                    }
+
+                ]
+            });
+
+
+
+            function createRequestParams() {
+                debugger;
+                var prm = new Object();
+                prm.mpID = $("input[name=MpID]").val();
+                return prm;
+            }
+
+        }
+    })();
+</script>

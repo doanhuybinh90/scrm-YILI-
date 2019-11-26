@@ -1,0 +1,54 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMediaImages
+@model CreateOrEditMpMediaImageViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<script type="text/javascript">
+
+    $("#MediaImage").change(function (e) {
+        var _id = $(this).attr("id");
+        var img = document.getElementById("UploadPicResize");
+        var obj = document.getElementById(_id);
+
+            img.src = window.URL.createObjectURL(obj.files[0]);
+
+    })
+
+</script>
+<div class="modal-body">
+  
+
+    <form id="UploadPicModalForm" method="POST" action="@(AppConsts.MvcAppPath +"AppAreaName/MpMediaImages/SaveAndUpdate")">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+}
+        <input type="hidden" name="MpID" value="@Model.MpID" />
+        <input type="hidden" id="MediaID" name="MediaID" value="@Model.MediaID" />
+        <input type="hidden" id="FileID" name="FileID" value="@Model.FileID" />
+        <input type="hidden" id="FilePathOrUrl" name="FilePathOrUrl" value="@Model.FilePathOrUrl" />
+        <input type="hidden" id="_MediaImageType" name="MediaImageType" value="@Model.MediaImageType" />
+        <input type="hidden" id="MediaImageTypeName" name="MediaImageTypeName" value="@Model.MediaImageTypeName" />
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Name">名称</label>
+            <input class="form-control edited" type="text" name="Name" value="@Model.Name" required maxlength="50">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="">图片素材类型</label>
+            <select class="form-control" id="selectTypeA"></select>
+        </div>
+        <img id="UploadPicResize" src="@Model.FilePathOrUrl" style="width:250px;height:250px;" />
+        <div class="form-group">
+            <input type="file" id="MediaImage" name="UploadPic" />
+            <span class="help-block m-b-none">只能选择2MB内的JPG/JPEG/PNG图片.</span>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn default close-button" data-dismiss="modal">@L("Cancel")</button>
+    <button type="button" id="save" class="btn blue "><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+</div>

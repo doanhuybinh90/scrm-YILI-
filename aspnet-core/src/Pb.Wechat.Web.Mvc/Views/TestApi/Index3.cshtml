@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = "~/Views/Account/_Layout.cshtml";
+    ViewBag.DisableTenantChange = true;
+}
+<script src="~/lib/abp-web-resources/Abp/Framework/scripts/abp.js"></script>
+<script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js"></script>
+<script type="text/javascript" src=" http://qiniu.mgcc.com.cn/wechat/js/base64.min.js ">
+</script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    var result=eval(@ViewBag.Result)
+    var mpid = '1';
+    var token = '123';
+    var share_pic = 'http://www.baidu.com/images/share.jpg';
+    var share_url;
+    var weChatUrlBase = 'getjssdkinfo?callurl=';
+    var weChatUrl;
+    var sharetitle = "初始分享主标题";
+    var sharedesc = "初始分享副标题";
+    function wechatConfig() {
+        var url = "http://yiliscrm3.mgcc.com.cn/TestApi/Index3?1=1";
+
+        share_url = window.location.href.split('#')[0];
+
+        wx.config({
+            debug: false,
+            appId: '@ViewBag.appId',
+            timestamp: '@ViewBag.timestamp',
+            nonceStr: '@ViewBag.nonceStr',
+            signature: '@ViewBag.signature',
+            jsApiList: [
+                // 所有要调用的 API 都要加到这个列表中
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage'
+            ]
+        });
+        wx.ready(function () {
+            wx.onMenuShareAppMessage({
+                title: sharetitle,
+                desc: sharedesc,
+                link: share_url,
+                imgUrl: share_pic,
+                success: function (res) {
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                }
+            });
+
+            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+            wx.onMenuShareTimeline({
+                title: sharetitle + sharedesc,
+                link: share_url,
+                imgUrl: share_pic,
+                success: function (res) {
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                }
+            });
+        });
+        wx.error(function (res) {
+            console.log("微信错误");
+        });
+
+
+    }
+
+    //页面初始化后调用jssdk接口
+    wechatConfig();
+
+    //触发某事件后，修改分享内容
+    $("#test").click(function () {
+        share_pic = 'http://www.baidu.com/images/share2.jpg';
+        sharetitle = "改变后的分享主标题";
+        sharedesc = "改变后的分享副标题";
+        share_url = share_url + "&change=true";
+        wechatConfig();
+    });
+
+
+
+</script>
+
+<div style="width:100%">
+    内容：
+
+</div>

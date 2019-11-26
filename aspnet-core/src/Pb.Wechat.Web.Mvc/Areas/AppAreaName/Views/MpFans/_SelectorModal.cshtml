@@ -1,0 +1,10 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel("选择分组"))
+<div class="modal-body">
+    <div id="MpGroupTree"></div>
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+<script type="text/javascript">
+    var isRenew = '@ViewBag.isRenew';
+</script>

@@ -1,0 +1,78 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.Authorization
+@using Pb.Wechat.MpEvents.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Startup
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpEvents
+@model MpEventDto
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.MpFocus;
+}
+
+@section Scripts
+{
+    
+    <environment names="Development">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpEvents/_CreateOrEditModal.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpEvents/RIndex.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpEvents/_CreateOrEditModal.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpEvents/RIndex.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row margin-bottom-5">
+    <div class="col-xs-6">
+        <div class="page-head">
+            <div class="page-title">
+                <h1>
+                    <span>关注回复</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">
+        @if (IsGranted(AppPermissions.Pages_ReplyManagement_MpEvents))
+    {
+        <button id="CreateButton" class="btn btn-primary blue"><i class="fa fa-save"></i> 保存</button>
+}
+    @*@if (IsGranted(AppPermissions.Pages_MpEvents))
+    {
+        <button id="CreateNewModelButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Create")</button>
+    }*@
+    </div>
+</div>
+
+<div class="portlet light margin-bottom-0">
+    <div class="portlet-body">
+        <div class="form">
+            <form id="DataForm" class="horizontal-form">
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+                <input type="hidden" name="ReplyType" value="@Model.ReplyType" />
+                <input type="hidden" name="EventType" value="@Model.EventType" />
+                <input type="hidden" name="EventCode" value="@Model.EventCode" />
+                <input type="hidden" name="ImageID" value="@Model.ImageID" />
+                <input type="hidden" name="ImageName" value="@Model.ImageName" />
+                <input type="hidden" name="ImageMediaID" value="@Model.ImageMediaID" />
+                <input type="hidden" name="VideoID" value="@Model.VideoID" />
+                <input type="hidden" name="VideoMediaID" value="@Model.VideoMediaID" />
+                <input type="hidden" name="VideoName" value="@Model.VideoName" />
+                <input type="hidden" name="VoiceID" value="@Model.VoiceID" />
+                <input type="hidden" name="VoiceMediaID" value="@Model.VoiceMediaID" />
+                <input type="hidden" name="VoiceName" value="@Model.VoiceName" />
+                <input type="hidden" name="ArticleGroupID" value="@Model.ArticleGroupID" />
+                <input type="hidden" name="ArticleGroupMediaID" value="@Model.ArticleGroupMediaID" />
+                <input type="hidden" name="ArticleGroupName" value="@Model.ArticleGroupName" />
+                <input type="hidden" name="ArticleID" value="@Model.ArticleID" />
+                <input type="hidden" name="ArticleMediaID" value="@Model.ArticleMediaID" />
+                <input type="hidden" name="ArticleName" value="@Model.ArticleName" />
+                <input type="hidden" name="Content" value="@Model.Content" />
+
+
+               
+            </form>
+
+        </div>
+        <div id="partialView"></div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpFansTags.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpFansTags
+@model CreateOrEditMpFansTagViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+}
+        <input type="hidden" name="MpID" value="@Model.MpID" />
+        <input type="hidden" name="CreationTime" value="@Model.CreationTime" />
+        <input type="hidden" name="CreatorUserId" value="@Model.CreatorUserId" />
+        <input type="hidden" name="LastModificationTime" value="@Model.LastModificationTime" />
+        <input type="hidden" name="LastModifierUserId" value="@Model.LastModifierUserId" />
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Name">标签名</label>
+            <input class="form-control edited" type="text" name="Name" value="@Model.Name" required maxlength="50">
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

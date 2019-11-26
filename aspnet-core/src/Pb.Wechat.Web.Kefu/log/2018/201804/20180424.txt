@@ -1,0 +1,150 @@
+
+ 
+记录时间：2018-04-24 15:15:32,359 
+线程ID:[8] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetMsgRecord接口-接口报错:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetFanDto>d__34.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1537
+--- 引发异常的上一位置中堆栈跟踪的末尾 ---
+   在 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetMsgRecord>d__21.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1109
+
+ 
+记录时间：2018-04-24 15:16:30,889 
+线程ID:[6] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetMsgRecord接口-接口报错:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetFanDto>d__34.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1537
+--- 引发异常的上一位置中堆栈跟踪的末尾 ---
+   在 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetMsgRecord>d__21.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1109
+
+ 
+记录时间：2018-04-24 15:17:12,070 
+线程ID:[6] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetMsgRecord接口-接口报错:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetFanDto>d__34.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1537
+--- 引发异常的上一位置中堆栈跟踪的末尾 ---
+   在 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetMsgRecord>d__21.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1109
+
+ 
+记录时间：2018-04-24 15:17:23,159 
+线程ID:[5] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetMsgRecord接口-接口报错:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetFanDto>d__34.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1537
+--- 引发异常的上一位置中堆栈跟踪的末尾 ---
+   在 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetMsgRecord>d__21.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1109
+
+ 
+记录时间：2018-04-24 17:52:27,586 
+线程ID:[29] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Average(IEnumerable`1 source)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1452
+
+ 
+记录时间：2018-04-24 17:55:08,845 
+线程ID:[27] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Average(IEnumerable`1 source)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1452
+
+ 
+记录时间：2018-04-24 17:55:30,925 
+线程ID:[32] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Average(IEnumerable`1 source)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1452
+
+ 
+记录时间：2018-04-24 17:56:21,826 
+线程ID:[34] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Average(IEnumerable`1 source)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1452
+
+ 
+记录时间：2018-04-24 17:59:46,622 
+线程ID:[5] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Average(IEnumerable`1 source)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1452
+
+ 
+记录时间：2018-04-24 18:02:20,936 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.ArgumentException: 实例方法的委托不能具有空“this”。
+   在 System.MulticastDelegate.ThrowNullThisInDelegateToInstance()
+   在 System.MulticastDelegate.CtorClosed(Object target, IntPtr methodPtr)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext()
+
+ 
+记录时间：2018-04-24 18:04:38,589 
+线程ID:[15] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Average(IEnumerable`1 source)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1487

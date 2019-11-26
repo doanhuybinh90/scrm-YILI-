@@ -1,0 +1,20 @@
+﻿@using Abp.Extensions
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpGroups
+@model GroupTreeItemModel
+@{
+    var list = Model.ModelList.Where(p => p.ParentID == Model.Id).ToList();
+    if (list.Any())
+    {
+        <ul>
+            @foreach (var item in list)
+            {
+                var selected = Model.SelectedItems==null?false: Model.SelectedItems.Any(m => m == item.Id);
+
+                <li id="@item.Id" class="jstree-open" data-jstree='{"selected": @selected.ToString().ToLower()}'>
+                    @item.Name
+                    @Html.Partial("~/Areas/AppAreaName/Views/MpGroups/_GroupTreeItem.cshtml", new GroupTreeItemModel(Model.ModelList,item.Id, item.Name,Model.SelectedItems))
+                </li>
+            }
+        </ul>
+    }
+}

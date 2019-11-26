@@ -1,0 +1,11 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel("请输入昵称"))
+<div class="modal-body">
+    <form name="DataForm3" role="form" novalidate class="form-validation">
+        <input type="hidden" id="mmpID" name="MpID" />
+        <input type="hidden" id="mmediaID" name="MediaID"  />
+        <input class="form-control edited" type="text" id="nickName" name="NickName" required maxlength="50">
+    </form>
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

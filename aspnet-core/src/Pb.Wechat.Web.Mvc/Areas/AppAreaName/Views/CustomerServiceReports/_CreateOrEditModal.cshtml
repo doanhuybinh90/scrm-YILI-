@@ -1,0 +1,57 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CustomerServiceReports.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CustomerServiceReports
+@model CreateOrEditCustomerServiceReportViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.ReportDate) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+		<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Id">Id</label>
+            <input class="form-control edited" type="text" name="Id" value="@Model.Id" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CreationTime">CreationTime</label>
+            <input class="form-control edited" type="text" name="CreationTime" value="@Model.CreationTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CustomerId">CustomerId</label>
+            <input class="form-control edited" type="text" name="CustomerId" value="@Model.CustomerId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="FanId">FanId</label>
+            <input class="form-control edited" type="text" name="FanId" value="@Model.FanId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MediaId">MediaId</label>
+            <input class="form-control edited" type="text" name="MediaId" value="@Model.MediaId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MediaUrl">MediaUrl</label>
+            <input class="form-control edited" type="text" name="MediaUrl" value="@Model.MediaUrl" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MpID">MpID</label>
+            <input class="form-control edited" type="text" name="MpID" value="@Model.MpID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MsgContent">MsgContent</label>
+            <input class="form-control edited" type="text" name="MsgContent" value="@Model.MsgContent" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MsgType">MsgType</label>
+            <input class="form-control edited" type="text" name="MsgType" value="@Model.MsgType" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Sender">Sender</label>
+            <input class="form-control edited" type="text" name="Sender" value="@Model.Sender" required>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

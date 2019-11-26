@@ -1,0 +1,59 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CustomerServiceWorkTimes.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CustomerServiceWorkTimes
+@model CreateOrEditCustomerServiceWorkTimeViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.WeekDay) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+}
+        <input type="hidden" id="MpID" name="MpID" value="@Model.MpID" />
+        <input type="hidden" name="MorningStartHour" value="@Model.MorningStartHour" />
+        <input type="hidden" name="MorningStartMinute" value="@Model.MorningStartMinute" />
+        <input type="hidden" name="MorningEndHour" value="@Model.MorningEndHour" />
+        <input type="hidden" name="MorningEndMinute" value="@Model.MorningEndMinute" />
+        <input type="hidden" name="AfternoonEndHour" value="@Model.AfternoonEndHour" />
+        <input type="hidden" name="AfternoonEndMinute" value="@Model.AfternoonEndMinute" />
+        <input type="hidden" name="AfternoonStartHour" value="@Model.AfternoonStartHour" />
+        <input type="hidden" name="AfternoonStartMinute" value="@Model.AfternoonStartMinute" />
+        <input type="hidden" name="WeekDay" value="@Model.WeekDay" />
+
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ResponseType">星期</label>
+            <select id="WeekDay">
+                <option value="-1">--请选择--</option>
+                <option value="1">周一</option>
+                <option value="2">周二</option>
+                <option value="3">周三</option>
+                <option value="4">周四</option>
+                <option value="5">周五</option>
+                <option value="6">周六</option>
+                <option value="0">周日</option>
+            </select>
+
+        </div>
+
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="">上午上班时间</label>
+            <select id="MorningStartHour" class="MorningHour"></select>：
+            <select id="MorningStartMinute" class="Minute"></select>
+            至
+            <select id="MorningEndHour" class="MorningHour"></select>：
+            <select id="MorningEndMinute" class="Minute"></select>
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="">下午上班时间</label>
+            <select id="AfternoonStartHour" class="AfternoonHour"></select>：
+            <select id="AfternoonStartMinute" class="Minute"></select>
+            至
+            <select id="AfternoonEndHour" class="AfternoonHour2"></select>：
+            <select id="AfternoonEndMinute" class="Minute"></select>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

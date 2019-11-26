@@ -1,0 +1,1 @@
+ALTER TABLE dbo.MpUserMembers ADD UnBindingReason NVARCHAR(500) NULL 

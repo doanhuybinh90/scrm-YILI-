@@ -1,0 +1,30 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CustomerServiceResponseTypes.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CustomerServiceResponseTypes
+@using Pb.Wechat.CustomerServiceConversations.Dto
+@model CreateOrEditCustomerServiceResponseTypeViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.TypeDescription) : L("Create")))
+<style type="text/css">
+    .modal-dialog {
+        width: 800px;
+    }
+</style>
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+
+
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="TypeDescription">分类名称</label>
+            <input class="form-control edited" type="text" name="TypeDescription" value="@Model.TypeDescription" id="TypeDescription" />
+        </div>
+
+
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

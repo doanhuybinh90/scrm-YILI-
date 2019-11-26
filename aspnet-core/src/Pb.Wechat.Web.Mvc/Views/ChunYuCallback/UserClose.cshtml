@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+    <script src="~/lib/abp-web-resources/Abp/Framework/scripts/abp.js" asp-append-version="true"></script>
+    <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js" asp-append-version="true"></script>
+    <script>
+
+        function GetQueryString(prop, url) {
+            var re = new RegExp("[?|&]" + prop + "=([^\\&]*)", "i");
+            if (!url) {
+                url = document.location.search;
+            }
+            else {
+                if (url.indexOf("?") >= 0) {
+                    url = url.split("?")[1];
+                }
+                else {
+                    url = "";
+                }
+            }
+            var a = re.exec(url);
+            if (a == null) return "";
+            return a[1];
+        }
+        if (confirm("亲，您是否要关闭当前咨询？")) {
+            var param = {
+                openid: GetQueryString('openid')
+            };
+            abp.ajax({
+                url: "DoClose?openid=" + GetQueryString('openid'),
+                dataType: "json",
+                data: JSON.stringify(param),
+                abpHandleError: false
+            }).done(function (data) {
+                if (data.state == 1)
+                    alert("问题成功关闭");
+                else if (data.state == 0)
+                    alert("问题不存在或早已关闭");
+                else
+                    alert("网络异常");
+                window.close();
+            }).fail(function (error) {
+                alert("网络异常");
+                window.close();
+            });
+        }
+        else {
+            window.close();
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,329 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpEvents.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMenus
+@model ReplyPartialModel
+
+<div>
+    <div class="row col-md-12">
+        <div class="col-md-2" align="left">
+            <span>
+                <label class="control-label" style="font-weight:bolder;font-size:large;">信息:</label>
+            </span>
+        </div>
+        <div class="col-md-10">
+            <span>
+                <input name="msgTypeRadio" type="radio" value="@MpMessageType.none.ToString()">&nbsp;&nbsp;无
+
+            </span>
+            <span>
+                <input name="msgTypeRadio" type="radio" value="@MpMessageType.text.ToString()">&nbsp;&nbsp;文字
+
+            </span>
+            <span>
+                <input name="msgTypeRadio" type="radio" value="@MpMessageType.image.ToString()">&nbsp;&nbsp;图片
+
+            </span>
+            <span>
+                <input name="msgTypeRadio" type="radio" value="@MpMessageType.voice.ToString()">&nbsp;&nbsp;语音
+
+            </span>
+            <span>
+                <input name="msgTypeRadio" type="radio" value="@MpMessageType.video.ToString()">&nbsp;&nbsp;视频
+
+            </span>
+            <span>
+                <input name="msgTypeRadio" type="radio" value="@MpMessageType.mpnews.ToString()">&nbsp;&nbsp; 图文
+
+            </span>
+            <span>
+                <input name="msgTypeRadio" type="radio" value="@MpMessageType.mpmultinews.ToString()">&nbsp;&nbsp;多图文
+
+            </span>
+
+        </div>
+    </div>
+    <div style="margin-top:20px;">
+        <div class="imageCls row" style="display:none;">
+            <div class="col-md-2" align="left">
+                <label class="control-label">图片名称：</label>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" id="_ImageName" value="@Model.ImageName" maxlength="500">
+                    </div>
+                    <div class="col-md-1">
+                        <button id="SelectMpMediaImage" class="btn btn-primary blue" style="display:none;"><i class="fa fa-plus"></i> 选择图片</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="articleCls row" style="display:none;">
+            <div class="col-md-2" align="left">
+                <label class="control-label">图文标题：</label>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-9 ">
+                        <input class="form-control edited" type="text" id="_ArticleName" value="@Model.ArticleName" maxlength="500">
+                    </div>
+                    <div class="col-md-1">
+                        <button id="SelectMpMediaArticle" class="btn btn-primary blue" style="display:none;"><i class="fa fa-plus"></i> 选择图文</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="articleGroupCls row" style="display:none;">
+            <div class="col-md-2" align="left">
+                <label class="control-label"> 多图文名称：</label>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-9 ">
+                        <input class="form-control edited" type="text" id="_ArticleGroupName" value="@Model.ArticleGroupName" maxlength="500">
+                    </div>
+                    <div class="col-md-1">
+                        <button id="SelectMpMediaArticleGroup" class="btn btn-primary blue" style="display:none;"><i class="fa fa-plus"></i> 选择多图文</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="videoCls row" style="display:none;">
+            <div class="col-md-2" align="left">
+                <label class="control-label"> 视频名称：</label>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-9 ">
+                        <input class="form-control edited" type="text" id="_VideoName" value="@Model.VideoName" maxlength="500">
+                    </div>
+                    <div class="col-md-1">
+                        <button id="SelectMpMediaVideo" class="btn btn-primary blue" style="display:none;"><i class="fa fa-plus"></i> 选择视频</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="voiceCls row" style="display:none;">
+            <div class="col-md-2" align="left">
+                <label class="control-label"> 音频名称：</label>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-9 ">
+                        <input class="form-control edited" type="text" id="_VoiceName" value="@Model.VoiceName" maxlength="500">
+                    </div>
+                    <div class="col-md-1">
+                        <button id="SelectMpMediaVoice" class="btn btn-primary blue" style="display:none;"><i class="fa fa-plus"></i> 选择语音</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="textCls row" style="display:none;">
+            <div class="col-md-2" align="left">
+                <label class="control-label">文字内容：</label>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-9 ">
+                        <textarea class="form-control" rows="2" id="inputContent" style="display:none;">@Model.Content</textarea>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $("#SelectMpMediaImage").click(function (e) {
+        var _createOrEditModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/MpEvents/MpImageSelector',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/MpEvents/_MpImageSelector.js',
+            modalClass: 'MpImageSelector'
+        });
+
+        _createOrEditModal.open();
+
+    });
+    $("#SelectMpMediaArticleGroup").click(function () {
+        var _createOrEditModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/MpSelfArticleGroups/MpSelfArticleGroupSelector',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/MpSelfArticleGroups/_MpSelfArticleGroupSelector.js',
+            modalClass: 'MpSelfArticleGroupSelector'
+        });
+        _createOrEditModal.open();
+    });
+    $("#SelectMpMediaArticle").click(function () {
+        var _createOrEditModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/MpSelfArticles/MpSelfArticleSelector',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/MpSelfArticles/_MpSelfArticleSelector.js',
+            modalClass: 'MpSelfArticleSelector'
+        });
+        _createOrEditModal.open();
+    });
+    $("#SelectMpMediaVoice").click(function () {
+        var _createOrEditModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/MpEvents/MpVoiceSelector',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/MpEvents/_MpVoiceSelector.js',
+            modalClass: 'MpVoiceSelector'
+        });
+        _createOrEditModal.open();
+    });
+    $("#SelectMpMediaVideo").click(function () {
+        var _createOrEditModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/MpEvents/MpVideoSelector',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/MpEvents/_MpVideoSelector.js',
+            modalClass: 'MpVideoSelector'
+        });
+        _createOrEditModal.open();
+    });
+
+    $("#inputContent").change(function () {
+        $("input[name=Content]").val($("#inputContent").val());
+    })
+    $("input:radio[name=msgTypeRadio]").bind("change", function (e) {
+        var data = e.target.value;
+        refreshReplyType(data);
+    });
+    //$("#ReplyType").bind("change", function () {
+    //    var data = $("#ReplyType").val();
+
+    //    refreshReplyType(data);
+    //});
+
+    function refreshReplyType(data) {
+        $("input[name=MediaType]").val(data);
+        if (data === "none") {
+            $("#SelectMpMediaArticle").css('display', 'none');
+            $("#SelectMpMediaArticleGroup").css('display', 'none');
+            $("#inputContent").css('display', 'none');
+            $("#SelectMpMediaVoice").css('display', 'none');
+            $("#SelectMpMediaImage").css('display', 'none');
+            $("#SelectMpMediaVideo").css('display', 'none');
+            $("input[name=ReplyType]").val("none");
+
+            $(".videoCls").css('display', 'none');
+            $(".articleCls").css('display', 'none');
+            $(".articleGroupCls").css('display', 'none');
+            $(".voiceCls").css('display', 'none');
+            $(".imageCls").css('display', 'none');
+            $(".textCls").css('display', 'none');
+        }
+        if (data === "mpnews") {
+            $("#SelectMpMediaArticle").css('display', 'block');
+            $("#SelectMpMediaArticleGroup").css('display', 'none');
+            $("#inputContent").css('display', 'none');
+            $("#SelectMpMediaVoice").css('display', 'none');
+            $("#SelectMpMediaImage").css('display', 'none');
+            $("#SelectMpMediaVideo").css('display', 'none');
+            $("input[name=ReplyType]").val("mpnews");
+
+            $(".articleCls").css('display', 'block');
+            $(".videoCls").css('display', 'none');
+            $(".articleGroupCls").css('display', 'none');
+            $(".voiceCls").css('display', 'none');
+            $(".imageCls").css('display', 'none');
+            $(".textCls").css('display', 'none');
+        }
+        if (data === "mpmultinews") {
+            $("#SelectMpMediaArticle").css('display', 'none');
+            $("#SelectMpMediaArticleGroup").css('display', 'block');
+            $("#inputContent").css('display', 'none');
+            $("#SelectMpMediaVoice").css('display', 'none');
+            $("#SelectMpMediaImage").css('display', 'none');
+            $("#SelectMpMediaVideo").css('display', 'none');
+            $("input[name=ReplyType]").val("mpmultinews");
+
+            $(".videoCls").css('display', 'none');
+            $(".articleCls").css('display', 'none');
+            $(".articleGroupCls").css('display', 'block');
+            $(".voiceCls").css('display', 'none');
+            $(".imageCls").css('display', 'none');
+            $(".textCls").css('display', 'none');
+        }
+        if (data === "text") {
+            $("#SelectMpMediaArticle").css('display', 'none');
+            $("#SelectMpMediaArticleGroup").css('display', 'none');
+            $("#inputContent").css('display', 'block');
+            $("#SelectMpMediaVoice").css('display', 'none');
+            $("#SelectMpMediaImage").css('display', 'none');
+            $("#SelectMpMediaVideo").css('display', 'none');
+            $("input[name=ReplyType]").val("text");
+
+            $(".videoCls").css('display', 'none');
+            $(".articleCls").css('display', 'none');
+            $(".articleGroupCls").css('display', 'none');
+            $(".voiceCls").css('display', 'none');
+            $(".imageCls").css('display', 'none');
+            $(".textCls").css('display', 'block');
+        }
+        if (data === "voice") {
+            $("#SelectMpMediaArticle").css('display', 'none');
+            $("#SelectMpMediaArticleGroup").css('display', 'none');
+            $("#inputContent").css('display', 'none');
+            $("#SelectMpMediaVoice").css('display', 'block');
+            $("#SelectMpMediaImage").css('display', 'none');
+            $("#SelectMpMediaVideo").css('display', 'none');
+            $("input[name=ReplyType]").val("voice");
+
+            $(".voiceCls").css('display', 'block');
+            $(".videoCls").css('display', 'none');
+            $(".articleCls").css('display', 'none');
+            $(".articleGroupCls").css('display', 'none');
+            $(".imageCls").css('display', 'none');
+            $(".textCls").css('display', 'none');
+        }
+        if (data === "image") {
+            $("#SelectMpMediaArticle").css('display', 'none');
+            $("#SelectMpMediaArticleGroup").css('display', 'none');
+            $("#inputContent").css('display', 'none');
+            $("#SelectMpMediaVoice").css('display', 'none');
+            $("#SelectMpMediaImage").css('display', 'block');
+            $("#SelectMpMediaVideo").css('display', 'none');
+            $("input[name=ReplyType]").val("image");
+
+            $(".imageCls").css('display', 'block');
+            $(".videoCls").css('display', 'none');
+            $(".articleCls").css('display', 'none');
+            $(".articleGroupCls").css('display', 'none');
+            $(".voiceCls").css('display', 'none');
+            $(".textCls").css('display', 'none');
+        }
+        if (data === "video") {
+            $("#SelectMpMediaArticle").css('display', 'none');
+            $("#SelectMpMediaArticleGroup").css('display', 'none');
+            $("#inputContent").css('display', 'none');
+            $("#SelectMpMediaVoice").css('display', 'none');
+            $("#SelectMpMediaImage").css('display', 'none');
+            $("#SelectMpMediaVideo").css('display', 'block');
+            $("input[name=ReplyType]").val("video");
+
+            $(".videoCls").css('display', 'block');
+            $(".articleCls").css('display', 'none');
+            $(".articleGroupCls").css('display', 'none');
+            $(".voiceCls").css('display', 'none');
+            $(".imageCls").css('display', 'none');
+            $(".textCls").css('display', 'none');
+        }
+        $("input[name=MediaType]").val(data);
+    }
+    if ('@Model.MediaType' != "") {
+        var _replyType = '@Model.MediaType';
+        refreshReplyType(_replyType);
+        //$("#ReplyType").val(_replyType);
+        $("input:radio[name=msgTypeRadio][value='" + _replyType + "']").attr('checked', true);
+    }
+
+    @*$("#inputContent").val('@Model.Content');*@
+</script>

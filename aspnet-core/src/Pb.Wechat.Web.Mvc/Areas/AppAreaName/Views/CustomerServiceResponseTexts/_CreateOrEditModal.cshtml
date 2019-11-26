@@ -1,0 +1,243 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CustomerServiceResponseTexts.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CustomerServiceResponseTexts
+@using Pb.Wechat.CustomerServiceConversations.Dto
+@model CreateOrEditCustomerServiceResponseTextViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.ResponseType) : L("Create")))
+<style type="text/css">
+    .modal-dialog {
+        width: 800px;
+    }
+</style>
+<div class="modal-body">
+    <form id="UploadModalForm" method="POST" action="@(AppConsts.MvcAppPath+"AppAreaName/CustomerServiceResponseTexts/SaveAndUpdate")">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+        <input type="hidden" id="MpID" name="MpID" value="@Model.MpID" />
+        <input type="hidden" id="MediaId" name="MediaId" value="@Model.MediaId" />
+        <input type="hidden" id="PreviewImgUrl" name="PreviewImgUrl" value="@Model.PreviewImgUrl" />
+        <input type="hidden" id="ReponseContentType" name="ReponseContentType" value="@Model.ReponseContentType" />
+        <input type="hidden" id="UseCount" name="UseCount" value="@Model.UseCount" />
+        <input type="hidden" id="TypeId" name="TypeId" value="@Model.TypeId" />
+        <input type="hidden" id="TypeName" name="TypeName" value="@Model.TypeName" />
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ResponseType">回复类型</label>
+            @Html.DropDownListFor(
+                                                                                c => c.ResponseType,
+                                                                                EnumHelper.GetEnum(typeof(ResponseTypeEx)).Select(c => new SelectListItem() { Value = c.Item1, Text = c.Item2 }),
+                                                                                new
+                                                                                {
+                                                                                    @class = "form-control bs-select",
+                                                                                    data_live_search = "true",
+                                                                                    id = "ResponseTypeX"
+                                                                                })
+
+        </div>
+        <div class="form-group form-md-floating-label">
+            <label class="control-label">选择分类：</label>
+            <select class="form-control" id="sel_TypeDescription" class="form-control"></select>
+        </div>
+
+        @*<div class="form-group form-md-floating-label">
+                <label class="control-label">回复文案：</label>
+                <textarea class="form-control" rows="6" id="ResponseText" name="ResponseText">@Model.ResponseText</textarea>
+            </div>*@
+
+
+        <div>
+            <div class="row col-md-12">
+                <div class="col-md-2" align="left">
+                    <span>
+                        <label class="control-label" style="font-weight:bolder;font-size:large;">信息:</label>
+                    </span>
+                </div>
+                <div class="col-md-10 commonSpan" style="display:none;">
+
+                    <span>
+                        <input name="msgTypeRadio" type="radio" value="@Convert.ToInt32(CustomerServiceMsgType.text)">&nbsp;&nbsp;文字
+
+                    </span>
+                    <span class="commonSpan">
+                        <input name="msgTypeRadio" type="radio" value="@Convert.ToInt32(CustomerServiceMsgType.image)">&nbsp;&nbsp;图片
+
+                    </span>
+                    <span class="commonSpan">
+                        <input name="msgTypeRadio" type="radio" value="@Convert.ToInt32(CustomerServiceMsgType.voice)">&nbsp;&nbsp;语音
+
+                    </span>
+                    <span class="commonSpan">
+                        <input name="msgTypeRadio" type="radio" value="@Convert.ToInt32(CustomerServiceMsgType.video)">&nbsp;&nbsp;视频
+
+                    </span>
+                    <span class="commonSpan">
+                        <input name="msgTypeRadio" type="radio" value="@CustomerServiceMsgType.mpnews.ToString()">&nbsp;&nbsp; 图文
+
+                    </span>
+                    <span class="commonSpan">
+                        <input name="msgTypeRadio" type="radio" value="@CustomerServiceMsgType.mpmultinews.ToString()">&nbsp;&nbsp;多图文
+
+                    </span>
+
+                </div>
+            </div>
+            <div style="margin-top:20px;">
+                <div class="imageCls row" style="display:none;">
+                    <div class="col-md-2" align="left">
+                    </div>
+
+                    <div class="col-md-10 row">
+                        <div class="col-md-7">
+                            <label>图片名称</label>
+                            <input class="form-control edited" type="text" name="ImageName" value="@Model.ImageName" id="ImageName" />
+                            <input type="file" id="MediaImage" name="UploadPic" />
+                            <a href="javascript:void(0);" id="SelectMpMediaImage" class="btn btn-primary blue"><i class="fa fa-plus"></i> 选择图片</a>
+                            <div><span>只能选择2MB内的JPG/JPEG/PNG图片.</span></div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <img id="UploadPicResize" src="@Model.PreviewImgUrl" style="width:250px;height:250px;" />
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="videoCls row" style="display:none;">
+                <div class="col-md-2" align="left">
+                    <label class="control-label"> </label>
+                </div>
+                <div class="col-md-10 row">
+                    <div class="col-md-10">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <label>标题</label>
+                            <input class="form-control edited" type="text" name="Title" value="@Model.Title" id="Title" />
+                        </div>
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <label>描述</label>
+                            <input class="form-control edited" type="text" name="Description" value="@Model.Description" id="Description" />
+                        </div>
+                    </div>
+                    <div class="col-md-10 ">
+                        <input type="file" name="UploadVideo" />
+                        <a href="javascript:void(0);" id="SelectMpMediaVideo" class="btn btn-primary blue"><i class="fa fa-plus"></i> 选择视频</a>
+
+                    </div>
+                    <div class="col-md-10">
+                        <span class="help-block m-b-none">视频文件不能超过10M，超过10M的视频可至腾讯视频上传后添加，也可通过添加视频详情页链接以及公众号文章链接插入视频，视频时长不少于1秒，不多于10小时，支持大部分主流视频格式。</span>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="voiceCls row" style="display:none;">
+                <div class="col-md-2" align="left">
+                    <label class="control-label"> </label>
+                </div>
+                <div class="col-md-10">
+
+                    <label>语音名称</label>
+                    <input class="form-control edited" type="text" name="VoiceName" value="@Model.VoiceName" id="VoiceName" />
+
+                    <input type="file" name="UploadVoice" />
+                    <a href="javascript:void(0);" id="SelectMpMediaVoice" class="btn btn-primary blue"><i class="fa fa-plus"></i> 选择语音</a>
+                    <div class="col-md-10">
+                        <span class="help-block m-b-none">语音内容：格式支持mp3、wma、wav，文件大小不超过5M，语音时长不超过60秒。</span>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="mpnewsCls row" style="display:none;">
+                <div class="col-md-2" align="left">
+                </div>
+
+                <div class="col-md-10 row">
+                    <div class="col-md-7">
+                        <label>标题</label>
+                        <input class="form-control edited" type="text" name="ArticleTitle" value="@Model.ImageName" id="ImageName" />
+                        <input type="file" id="MediaImage" name="UploadPic" />
+                        <a href="javascript:void(0);" id="SelectMpMediaImage" class="btn btn-primary blue"><i class="fa fa-plus"></i> 选择图片</a>
+                        <div><span>只能选择2MB内的JPG/JPEG/PNG图片.</span></div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <img id="UploadPicResize" src="@Model.PreviewImgUrl" style="width:250px;height:250px;" />
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="textCls row" style="display:none;">
+            <div class="col-md-2" align="left">
+                <label class="control-label">回复文案：</label>
+            </div>
+            <div class="col-md-10">
+
+                <textarea class="form-control" rows="6" id="ResponseText" name="ResponseText">@Model.ResponseText</textarea>
+
+            </div>
+
+
+        </div>
+</div>
+        </div>
+
+    </form>
+</div>
+@*@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")*@
+<div class="modal-footer">
+    <button type="button" class="btn default close-button" data-dismiss="modal">@L("Cancel")</button>
+    <button type="button" id="save" class="btn blue "><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+</div>
+<script type="text/javascript">
+    var _contentType='@Model.ReponseContentType';
+    $("input:radio[name=msgTypeRadio][value='" + _contentType + "']").attr('checked', true);
+    if (_contentType == '@Convert.ToInt32(CustomerServiceMsgType.text)') {
+        $(".textCls").show();
+        $(".imageCls").hide();
+        $(".voiceCls").hide();
+        $(".videoCls").hide();
+    }
+    else if (_contentType == '@Convert.ToInt32(CustomerServiceMsgType.image)') {
+        $(".textCls").hide();
+        $(".imageCls").show();
+        $(".voiceCls").hide();
+        $(".videoCls").hide();
+    }
+     else if (_contentType == '@Convert.ToInt32(CustomerServiceMsgType.voice)') {
+        $(".textCls").hide();
+        $(".imageCls").hide();
+        $(".voiceCls").show();
+        $(".videoCls").hide();
+    }
+     else if (_contentType == '@Convert.ToInt32(CustomerServiceMsgType.video)') {
+        $(".textCls").hide();
+        $(".imageCls").hide();
+        $(".voiceCls").hide();
+        $(".videoCls").show();
+    }
+    if ($("#ResponseTypeX").val() === "common") {
+        $(".commonSpan").show();
+    }
+    else {
+        $(".commonSpan").hide();
+        $(".imageCls").hide();
+        $(".videoCls").hide();
+        $(".voiceCls").hide();
+    }
+</script>

@@ -1,0 +1,74 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpAccounts.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpAccounts
+@model CreateOrEditMpAccountViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+}
+
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Name">名称</label>
+            <input class="form-control edited" type="text" name="Name" value="@Model.Name" required maxlength="50">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="WxAccount">公众号微信号</label>
+            <input class="form-control edited" type="text" name="WxAccount" value="@Model.WxAccount" required maxlength="500">
+        </div>
+        <div class="form-group">
+            <label for="Type">类型</label>
+            @Html.DropDownListFor(
+                 c => c.AccountType,
+                 EnumHelper.GetEnum(typeof(MpAccountType)).Select(c => new SelectListItem() { Value = c.Item1, Text = c.Item2 }),
+                 new
+                 {
+                     @class = "form-control bs-select",
+                     data_live_search = "true",
+                     id = "Type"
+                 })
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="AppId">AppId</label>
+            <input class="form-control edited" type="text" name="AppId" value="@Model.AppId" required maxlength="200">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="AppSecret">AppSecret</label>
+            <input class="form-control edited" type="text" name="AppSecret" value="@Model.AppSecret" required maxlength="500">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Token">Token</label>
+            <input class="form-control edited" type="text" name="Token" value="@Model.Token" maxlength="200">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="EncodingAESKey">EncodingAESKey</label>
+            <input class="form-control edited" type="text" name="EncodingAESKey" value="@Model.EncodingAESKey" maxlength="500">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MchID">MchID</label>
+            <input class="form-control edited" type="text" name="MchID" value="@Model.MchID" maxlength="200">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="WxPayAppSecret">WxPayAppSecret</label>
+            <input class="form-control edited" type="text" name="WxPayAppSecret" value="@Model.WxPayAppSecret" maxlength="500">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CertPhysicalPath">证书地址</label>
+            <input class="form-control edited" type="text" name="CertPhysicalPath" value="@Model.CertPhysicalPath" maxlength="500">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CertPassword">证书密码</label>
+            <input class="form-control edited" type="text" name="CertPassword" value="@Model.CertPassword" maxlength="50">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Remark">备注</label>
+            <input class="form-control edited" type="text" name="Remark" value="@Model.Remark" maxlength="2000">
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

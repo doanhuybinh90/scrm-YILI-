@@ -1,0 +1,82 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel("选择图片"))
+<div class="modal-body">
+    <form name="DataForm2" role="form" novalidate class="form-validation">
+        <table id="FormTable2" class="display table table-striped table-bordered table-hover dt-responsive ">
+            <thead>
+                <tr>
+                    <th>@L("Actions")</th>
+                    <th>名称</th>
+                    <th>缩略图</th>
+                </tr>
+            </thead>
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+    var _modalManager;
+    function selectItem(filePathOrUrl, mediaID,name) {
+        if ($("input[name=PreviewImgUrl]"))
+            $("input[name=PreviewImgUrl]").val(filePathOrUrl);
+        if ($("input[name=MediaId]"))
+            $("input[name=MediaId]").val(mediaID);
+     if ($("input[name=ImageName]"))
+            $("input[name=ImageName]").val(name);
+        $('#UploadPicResize').attr("src", filePathOrUrl);
+        _modalManager.close();
+        _modalManager.setBusy(false);
+    }
+    (function () {
+        app.modals.MpImageSelector = function () {
+            var _$formTable = $('#FormTable2');
+            var dataService = abp.services.app.mpMediaImage;
+            var dataTable = _$formTable.DataTable({
+                paging: true,
+                serverSide: true,
+                processing: true,
+                listAction: {
+                    ajaxFunction: dataService.getAll,
+                    inputFilter: function () {
+                        return createRequestParams();
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, full, meta) {
+
+                            return '<a href="javascript:selectItem(\'' + data.filePathOrUrl + '\',\'' + data.mediaID + '\',\''+data.name+'\')"><i class="fa fa-check"></i>选择</a>';
+                        }
+                    },
+                    {
+                        targets: 1,
+                        data: "name"
+                    },
+                    {
+                        targets: 2,
+                        data: "filePathOrUrl",
+                        render: function (t) {
+                            return "<div align='center' style='width:100px;height:50px;'><a href='" + t + "' target='_blank' ><image src='" + t + "' alt='' style='max-width:100%;max-height:100%;' /></a></div>";
+                        }
+                    }
+
+                ]
+            });
+
+            this.init = function (modalManager) {
+                _modalManager = modalManager;
+            };
+
+            function createRequestParams() {
+                var prm = new Object();
+                prm.mpID = $("input[name=MpID]").val();
+                return prm;
+
+            }
+        }
+    })();
+</script>

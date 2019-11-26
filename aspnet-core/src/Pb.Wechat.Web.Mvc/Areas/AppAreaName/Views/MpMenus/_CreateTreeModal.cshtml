@@ -1,0 +1,20 @@
+﻿@using Abp.Organizations
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMenus
+@model CreateOrEditMpMenuViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel("添加主菜单"))
+
+<div class="modal-body">
+    <form name="NewTreeForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="ParentID" value="@Model.ParentID" />
+        <input type="hidden" name="MpID" value="@Model.MpID" />
+        <input type="hidden" name="Type" value="@Model.Type" />
+        <div class="form-group form-md-line-input form-md-floating-label no-hint">
+            <label>名称</label>
+            <input class="form-control" type="text" name="Name" required>
+        </div>
+    </form>
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,0 +1,173 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMenus
+@using Pb.Wechat.MpMenus.Dto
+@model CreateOrEditMpMenuViewModel
+
+<div class="modal-body">
+    <div class="row col-md-12">
+        <div class="col-md-12">
+            <form name="DataForm" role="form" novalidate class="form-validation">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" name="ParentID" value="@Model.ParentID" />
+                <input type="hidden" name="FullPath" value="@Model.FullPath" />
+                <input type="hidden" name="ChildCount" value="@Model.ChildCount" />
+                <input type="hidden" name="Length" value="@Model.Length" />
+                <input type="hidden" name="GetOpenID" value="@Model.GetOpenID" />
+                <input type="hidden" name="MenuKey" value="@Model.MenuKey" />
+                <input type="hidden" name="SortIndex" value="@Model.SortIndex" />
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+                <input type="hidden" name="Type" value="@Model.Type" />
+                <input type="hidden" name="MediaType" value="@Model.MediaType" />
+                <input type="hidden" name="LinkUrl" value="@Model.LinkUrl" />
+                <input type="hidden" name="ImageID" value="@Model.ImageID" />
+                <input type="hidden" name="ImageName" value="@Model.ImageName" />
+                <input type="hidden" name="ImageMediaID" value="@Model.ImageMediaID" />
+                <input type="hidden" name="VideoID" value="@Model.VideoID" />
+                <input type="hidden" name="VideoMediaID" value="@Model.VideoMediaID" />
+                <input type="hidden" name="VideoName" value="@Model.VideoName" />
+                <input type="hidden" name="VoiceID" value="@Model.VoiceID" />
+                <input type="hidden" name="VoiceMediaID" value="@Model.VoiceMediaID" />
+                <input type="hidden" name="VoiceName" value="@Model.VoiceName" />
+                <input type="hidden" name="ArticleGroupID" value="@Model.ArticleGroupID" />
+                <input type="hidden" name="ArticleGroupMediaID" value="@Model.ArticleGroupMediaID" />
+                <input type="hidden" name="ArticleGroupName" value="@Model.ArticleGroupName" />
+                <input type="hidden" name="ArticleID" value="@Model.ArticleID" />
+                <input type="hidden" name="ArticleMediaID" value="@Model.ArticleMediaID" />
+                <input type="hidden" name="ArticleName" value="@Model.ArticleName" />
+                <input type="hidden" name="Content" value="@Model.Content" />
+                <input type="hidden" name="Name" value="@Model.Name" />
+                <input type="hidden" name="UseSolicitude" value="@Model.UseSolicitude" />
+            </form>
+            <div class="row">
+                <div class="form-group form-md-line-input form-row-seperated form-md-floating-label col-md-12">
+                    <label for="Name">名称</label>
+                    <input class="form-control edited" type="text" id="Name" value="@Model.Name" required maxlength="50">
+                </div>
+            </div>
+            <div class="row">
+                <div class="md-checkbox-list">
+                    <div class="md-checkbox">
+                        <input id="UseSolicitude" class="md-check" type="checkbox" name="UseSolicitude" value="true" @Html.Raw(Model.UseSolicitude ? "checked=\"checked\"" : "")>
+                        <label for="UseSolicitude">
+                            <span class="inc"></span>
+                            <span class="check"></span>
+                            <span class="box"></span>
+                            关怀回复
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-row-seperated form-md-floating-label  col-md-12">
+                    <label for="Type">类型</label>
+                    @Html.DropDownListFor(
+c => c.Type,
+EnumHelper.GetEnum(typeof(MpMenuType)).Select(c => new SelectListItem() { Value = c.Item1, Text = c.Item2 }),
+new
+{
+ @class = "form-control bs-select",
+ data_live_search = "true",
+ id = "MenuType"
+})
+                </div>
+            </div>
+            <div id="viewDiv" style="display:none;">
+                <label for="LinkUrl">跳转链接</label>
+                <input class="form-control edited" type="text" id="LinkUrl" value="@Model.LinkUrl" maxlength="500">
+            </div>
+            <div id="partialView" style="display:none;"></div>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal-footer" style="margin-top:20px; border-top:none;">
+    <button type="button" id="saveButton" class="btn blue save-button"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+</div>
+<style>
+    .md-checkbox-list {
+        margin: 5px 0 5px 15px;
+    }
+</style>
+<script type="text/javascript">
+    debugger;
+    var menuKey = '@Model.MenuKey';
+    var menuType='@Model.Type';
+    if (menuType === "click" && menuKey === "service")
+        $("#MenuType").val("service");
+    if (menuType === "click" && menuKey === "doctorservice")
+        $("#MenuType").val("doctorservice");
+    $("#Name").bind("change", function () {
+        $("input[name=Name]").val($("#Name").val());
+    });
+    $("#LinkUrl").bind("change", function () {
+        $("input[name=LinkUrl]").val($("#LinkUrl").val());
+    });
+    $("#MenuType").bind("change", function () {
+        var type = $("#MenuType").val();
+        $("input[name=Type]").val(type);
+        if (type === "service")
+        {
+            $("input[name=Type]").val("click");
+            $("input[name=MenuKey]").val("service");
+        }
+        if (type === "doctorservice") {
+            $("input[name=Type]").val("click");
+            $("input[name=MenuKey]").val("doctorservice");
+        }
+
+        loadPartialView();
+    });
+
+    function loadPartialView() {
+        var type = $("#MenuType").val();
+        if (type === "click") {
+            $.post(abp.appPath +"AppAreaName/MpMenus/ContentSelector", { id: selectId }, function (data) {
+                $("#partialView").html(data);
+            })
+            $("#partialView").css('display', 'block');
+            $("#viewDiv").css('display', 'none');
+        }
+        else if (type === "view") {
+            $("#partialView").html("");
+            $("#viewDiv").css('display', 'block');
+            $("#partialView").css('display', 'none');
+
+        }
+        else
+        {
+            $("#partialView").html("");
+            $("#viewDiv").css('display', 'none');
+            $("#partialView").css('display', 'none');
+        }
+    }
+
+    loadPartialView();
+
+    $("#saveButton").click(function () {
+        var type = $("#MenuType").val();
+        if (type === "service") {
+            $("input[name=Type]").val("click");
+            $("input[name=MenuKey]").val("service");
+        }
+        else if (type === "doctorservice") {
+            $("input[name=Type]").val("click");
+            $("input[name=MenuKey]").val("doctorservice");
+        }
+        else
+        {
+            $("input[name=MenuKey]").val("");
+        }
+        var dataService = abp.services.app.mpMenu;
+        var dataForm = $('form[name=DataForm]');
+        var model = dataForm.serializeFormToObject();
+        model['UseSolicitude'] = $("#UseSolicitude").prop("checked");
+        var savePromise = dataService.update(model);
+        savePromise.done(function () {
+            abp.notify.info(app.localize('SavedSuccessfully'));
+            abp.event.trigger('app.createOrEditModalSaved');
+        });
+    })
+</script>

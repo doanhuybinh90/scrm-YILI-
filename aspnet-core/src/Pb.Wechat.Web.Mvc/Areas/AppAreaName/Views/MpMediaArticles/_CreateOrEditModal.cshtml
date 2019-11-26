@@ -1,0 +1,280 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMediaArticles
+@model CreateOrEditMpMediaArticleViewModel
+@section Styles
+    {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/view-resources/KindEditor/themes/default/default.css" asp-append-version="true" />
+    </environment>
+}
+<script src="~/view-resources/KindEditor/kindeditor.js" asp-append-version="true"></script>
+<script src="~/view-resources/KindEditor/lang/zh_CN.js" asp-append-version="true"></script>
+
+
+@*<script type="text/javascript" charset="utf-8" src="~/view-resources/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/view-resources/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/view-resources/ueditor/lang/zh-cn/zh-cn.js"></script>*@
+
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Title) : L("Create")))
+
+<div class="modal-body">
+    <div class="row ">
+       
+        <div class="col-xs-12">
+            <form id="UploadPicModalForm" method="POST" action="@(AppConsts.MvcAppPath +"AppAreaName/MpMediaArticles/SaveAndUpdate")">
+                @if (Model.IsEditMode)
+    {
+            <input type="hidden" name="Id" value="@Model.Id" />
+}
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+                <input type="hidden" id="ShowPic" name="ShowPic" value="@Model.ShowPic" />
+                <input type="hidden" id="MediaID" name="MediaID" value="@Model.MediaID" />
+                <input type="hidden" id="FilePathOrUrl" name="FilePathOrUrl" value="@Model.FilePathOrUrl" />
+                <input type="hidden" id="PicFileID" name="PicFileID" value="@Model.PicFileID" />
+                <input type="hidden" id="PicMediaID" name="PicMediaID" value="@Model.PicMediaID" />
+                <input type="hidden" id="Content" name="Content" value="@Model.Content" />
+                <input type="hidden" id="HostName" name="HostName" value="@Model.HostName" />
+                <input type="hidden" id="SavePath" name="SavePath" value="@Model.SavePath" />
+                <input type="hidden" id="ArticleGrid" name="ArticleGrid" value="@Model.ArticleGrid" />
+                <input type="hidden" id="EnableComment" name="EnableComment" value="@Model.EnableComment" />
+                <input type="hidden" id="OnlyFansComment" name="OnlyFansComment" value="@Model.OnlyFansComment" />
+                <div class="col-xs-8">
+                    <div class="form-group form-row-seperated form-md-floating-label">
+                        <label for="Name">标题</label>
+                        <input class="form-control edited" type="text" id="Title" name="Title" value="@Model.Title" required maxlength="50">
+                    </div>
+
+                    <div class="form-group form-row-seperated form-md-floating-label">
+                        <label for="Name">作者</label>
+                        <input class="form-control edited " type="text" id="Author" name="Author" value="@Model.Author" maxlength="500">
+                        <input type="checkbox" checked="checked" id="checkPic" value="0">
+                        <label for="Name">封面显示在正文</label>
+                    </div>
+
+
+
+                    <div class="form-group form-row-seperated form-md-floating-label">
+                        <label for="Name">原文链接</label>
+                        <input class="form-control edited" type="text" id="AUrl" name="AUrl" value="@Model.AUrl" maxlength="200">
+
+                    </div>
+                    <div class="form-group form-row-seperated form-md-floating-label">
+                        <span><input type="checkbox" id="checkedComment" checked />留言</span>
+                        <span class="commentDiv" style="padding-left:50px;">
+                            <input type="radio" name="OnlyFansCommentx" value="0" checked />所有人可留言
+                            <input type="radio" name="OnlyFansCommentx" value="1" />仅关注后可留言
+                        </span>
+                    </div>
+                    <div class="form-group form-row-seperated form-md-floating-label">
+                        <label for="Name">摘要</label>
+                        <textarea class="form-control edited " rows="2" name="Description">@Model.Description</textarea>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-4">
+                    <img id="UploadPicResize" src="@Model.FilePathOrUrl" style="width:250px;height:250px;" />
+                    <div class="form-group">
+                        <input type="file" id="MediaImage" name="UploadPic" title="上传" />
+                        @*<button id="SelectPicButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> 从图片选择</button>*@
+                        <a href="javascript:void(0);" id="SelectPicButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> 从图片选择</a>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <div>
+        <textarea id="_KindEditor" class="form-control KindEditor" style="width: 100%; height: 350px"></textarea>
+    </div>
+    @*<div>
+        <script id="editor" type="text/plain" style="width:100%; height: 500px;max-width:640px;">
+        </script>
+    </div>*@
+</div>
+@*<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+</script>*@
+<script language="javascript" type="text/javascript">
+    var guid ='@Model.ArticleGrid';
+   
+    var shouPic = '@Model.ShowPic';
+    if (shouPic === "1")
+        $("#checkPic").attr('checked', true);
+    else
+        $("#checkPic").attr('checked',false);
+    function InitKindEditor(K) {
+        window.editor = K.create('textarea.KindEditor', {
+            uploadJson: abp.appPath + 'KindEditor/Upload?articleGuid=' + guid,
+            fileManagerJson: abp.appPath + 'KindEditor/FileManager/',
+            allowFileManager: true,
+            resizeType: 0,
+            filterMode: false,
+            wellFormatMode: false,
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                'hr', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', 'emoticons'
+            ]
+        });
+    }
+    KindEditor.plugin('video', function (K) {
+        var self = this, name = 'video',
+            allowMediaUpload = K.undef(self.allowMediaUpload, true),
+            allowFileManager = K.undef(self.allowFileManager, false),
+            formatUploadUrl = K.undef(self.formatUploadUrl, true),
+            extraParams = K.undef(self.extraFileUploadParams, {}),
+            filePostName = K.undef(self.filePostName, 'imgFile'),
+            uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php');
+        self.plugin.video = {
+            edit: function () {
+                var html = [
+                    '<div style="padding:20px;">',
+                    //url
+                    '<div class="ke-dialog-row">',
+                    '<label for="keUrl" style="width:60px;">腾讯视频</label>',
+                    '<input class="ke-input-text" type="text" id="keUrl" name="url" value="" style="width:160px;" /> &nbsp;',
+                    '<span class="ke-button-common ke-button-outer">',
+                    '<input type="button" class="ke-button-common ke-button" name="viewServer" value="选择微信素材" />',
+                    '</span>',
+                    '</div>',
+                    '</div>'
+                ].join('');
+                var dialog = self.createDialog({
+                    name: name,
+                    width: 450,
+                    height: 130,
+                    title: self.lang(name),
+                    body: html,
+                    yesBtn: {
+                        name: self.lang('yes'),
+                        click: function (e) {
+                            var url = K.trim(urlBox.val()),
+                                width = widthBox.val(),
+                                height = heightBox.val();
+                            if (url == 'http://' || K.invalidUrl(url)) {
+                                alert(self.lang('invalidUrl'));
+                                urlBox[0].focus();
+                                return;
+                            }
+                            if (!/^\d*$/.test(width)) {
+                                alert(self.lang('invalidWidth'));
+                                widthBox[0].focus();
+                                return;
+                            }
+                            if (!/^\d*$/.test(height)) {
+                                alert(self.lang('invalidHeight'));
+                                heightBox[0].focus();
+                                return;
+                            }
+                            var html = K.mediaImg(self.themesPath + 'common/blank.gif', {
+                                src: url,
+                                type: K.mediaType(url),
+                                width: width,
+                                height: height,
+                                autostart: autostartBox[0].checked ? 'true' : 'false',
+                                loop: 'true'
+                            });
+                            self.insertHtml(html).hideDialog().focus();
+                        }
+                    }
+                }),
+                    div = dialog.div,
+                    urlBox = K('[name="url"]', div),
+                    viewServerBtn = K('[name="viewServer"]', div),
+                    widthBox = K('[name="width"]', div),
+                    heightBox = K('[name="height"]', div),
+                    autostartBox = K('[name="autostart"]', div);
+                urlBox.val('http://');
+
+                if (allowMediaUpload) {
+                    var uploadbutton = K.uploadbutton({
+                        button: K('.ke-upload-button', div)[0],
+                        fieldName: filePostName,
+                        extraParams: extraParams,
+                        url: K.addParam(uploadJson, 'dir=video'),
+                        afterUpload: function (data) {
+                            dialog.hideLoading();
+                            if (data.error === 0) {
+                                var url = data.url;
+                                if (formatUploadUrl) {
+                                    url = K.formatUrl(url, 'absolute');
+                                }
+                                urlBox.val(url);
+                                if (self.afterUpload) {
+                                    self.afterUpload.call(self, url, data, name);
+                                }
+                                alert(self.lang('uploadSuccess'));
+                            } else {
+                                alert(data.message);
+                            }
+                        },
+                        afterError: function (html) {
+                            dialog.hideLoading();
+                            self.errorDialog(html);
+                        }
+                    });
+                    uploadbutton.fileBox.change(function (e) {
+                        dialog.showLoading(self.lang('uploadLoading'));
+                        uploadbutton.submit();
+                    });
+                } else {
+                    K('.ke-upload-button', div).hide();
+                }
+
+                if (allowFileManager) {
+                    viewServerBtn.click(function (e) {
+                        self.loadPlugin('filemanager', function () {
+                            self.plugin.filemanagerDialog({
+                                viewType: 'LIST',
+                                dirName: 'video',
+                                clickFn: function (url, title) {
+                                    if (self.dialogs.length > 1) {
+                                        K('[name="url"]', div).val(url);
+                                        if (self.afterSelectFile) {
+                                            self.afterSelectFile.call(self, url);
+                                        }
+                                        self.hideDialog();
+                                    }
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    viewServerBtn.hide();
+                }
+
+                var img = self.plugin.getSelectedMedia();
+                if (img) {
+                    var attrs = K.mediaAttrs(img.attr('data-ke-tag'));
+                    urlBox.val(attrs.src);
+                    widthBox.val(K.removeUnit(img.css('width')) || attrs.width || 0);
+                    heightBox.val(K.removeUnit(img.css('height')) || attrs.height || 0);
+                    autostartBox[0].checked = (attrs.autostart === 'true');
+                }
+                urlBox[0].focus();
+                urlBox[0].select();
+            },
+            'delete': function () {
+                self.plugin.getSelectedMedia().remove();
+                // [IE] 删除图片后立即点击图片按钮出错
+                self.addBookmark();
+            }
+        };
+        self.clickToolbar(name, self.plugin.video.edit);
+    });
+    KindEditor.lang({
+        video: '视频'
+    });
+    InitKindEditor(KindEditor)
+</script>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

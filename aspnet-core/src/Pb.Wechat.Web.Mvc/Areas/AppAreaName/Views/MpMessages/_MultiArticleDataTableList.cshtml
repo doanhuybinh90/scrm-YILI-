@@ -1,0 +1,323 @@
+﻿@model Pb.Wechat.Web.Areas.AppAreaName.Models.MpMessages.MpMessagePartialDataListModel
+
+<div class="form">
+    <form id="FilterForm" class="horizontal-form">
+        <input type="hidden" name="MpID" value="@Model.MpID" />
+        <input type="hidden" name="MessageTypeX" value="@Model.MessageType" />
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+            <div id="AdvacedAuditFiltersArea" style="display: none">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-10">
+            <div class="col-sm-6">
+                @*<span id="ShowAdvancedFiltersSpan" class="clickable-item text-muted"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                <span id="HideAdvancedFiltersSpan" class="clickable-item text-muted" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>*@
+            </div>
+            <div class="col-sm-6 text-right">
+                <button id="RefreshListButton" class="btn blue"><i class=" fa fa-refresh"></i> @L("Search")</button>
+            </div>
+        </div>
+    </form>
+</div>
+<table id="FormTable" class="display table table-striped table-bordered table-hover dt-responsive ">
+    <thead>
+        <tr>
+            <th data-field="operation">@L("Actions")</th>
+            <th data-field="name">名称</th>
+            <th data-field="url">封面</th>
+            <th data-field="title">标题</th>
+            <th data-field="messageType">消息类型</th>
+            <th>发送类型</th>
+            <th>执行时间</th>
+            <th>执行状态</th>
+            <th>完成时间</th>
+            <th>发送数</th>
+            <th>发送成功</th>
+            <th>发送失败</th>
+
+            @*<th data-field="lastModificationTime">更新时间</th>*@
+
+        </tr>
+    </thead>
+</table>
+
+<script type="text/javascript">
+    _$formTable = $('#FormTable');
+    _$filterForm = $('#FilterForm');
+    function edit(id) {
+        _createOrEditModal.open({ id: id });
+    }
+    function deleteModel(id) {
+        abp.message.confirm(
+            app.localize('AreYouSureToDeleteSomething', ""),
+            function (isConfirmed) {
+                if (isConfirmed) {
+                    dataService.delete({
+                        id: id
+                    }).done(function () {
+                        refreshList();
+                        abp.notify.success(app.localize('SuccessfullyDeleted'));
+                    });
+                }
+            }
+        );
+    };
+
+    function createRequestParams() {
+        var prms = {};
+        _$filterForm.serializeArray().map(function (x) { prms[abp.utils.toCamelCase(x.name)] = x.value; });
+        return $.extend(prms);
+    }
+
+    $('#RefreshListButton').click(function (e) {
+        e.preventDefault();
+        refreshList();
+    });
+
+    abp.event.on('app.createOrEditModalSaved', function () {
+        refreshList();
+    });
+
+
+    $('#ShowAdvancedFiltersSpan').click(function () {
+        $('#ShowAdvancedFiltersSpan').hide();
+        $('#HideAdvancedFiltersSpan').show();
+        $('#AdvacedAuditFiltersArea').slideDown();
+    });
+
+    $('#HideAdvancedFiltersSpan').click(function () {
+        $('#HideAdvancedFiltersSpan').hide();
+        $('#ShowAdvancedFiltersSpan').show();
+        $('#AdvacedAuditFiltersArea').slideUp();
+    });
+    _$filterForm.keydown(function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            refreshList();
+        }
+    });
+
+    (function () {
+        $(function () {
+          
+            dataTable = _$formTable.DataTable({
+                paging: true,
+                serverSide: true,
+                processing: true,
+                listAction: {
+                    ajaxFunction: dataService.getMultiArticlesDataList,
+                    inputFilter: function () {
+                        return createRequestParams();
+                    }
+                },
+                "columns": [
+                { "data": null, "orderable": false, "searchable": false },
+               { "data": "name", "orderable": false, "searchable": false },
+               { "data": "filePathOrUrl", "orderable": false, "searchable": false },
+               { "data": "title", "orderable": false, "searchable": false },
+               { "data": "messageType", "orderable": false, "searchable": false },
+               { "data": "isTask", "orderable": false, "searchable": false },
+               { "data": "execTaskTime", "orderable": false, "searchable": false },
+               { "data": "sendState", "orderable": false, "searchable": false },
+               { "data": "finishDate", "orderable": false, "searchable": false },
+               { "data": "sendCount", "orderable": false, "searchable": false },
+               { "data": "successCount", "orderable": false, "searchable": false },
+               { "data": "failCount", "orderable": false, "searchable": false },
+              
+                ],
+                columnDefs: [
+                    {
+                        targets: 0,
+                        data: null,
+                        render: function (data, type, full, meta) {
+
+                            var str = "";
+                            if (data.isTask === 1 && data.sendState === 0) {
+                                str += '<a href="javascript:edit(\'' + data.id + '\')"><i class="fa fa-edit"></i>修改</a>';
+                            }
+                            if (data.isTask === 1 && data.sendState === 0) {
+                                if (str.length > 0)
+                                    str += "&nbsp;|&nbsp;";
+                                str += '<a href="javascript:deleteModel(\'' + data.id + '\',\'' + data.name + '\')"><i class="fa fa-remove"></i>删除</a>';
+                            }
+                            
+                            return str;
+                        }
+                    },
+                    //{
+                    //    targets: 0,
+                    //    data: null,
+                    //    orderable: false,
+                    //    autoWidth: false,
+                    //    defaultContent: '',
+                    //    rowAction: {
+                    //        cssClass: 'btn btn-xs btn-primary blue',
+                    //        text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
+                    //        items: [{
+                    //            text: app.localize('Edit'),
+                    //            visible: function (data) {
+                    //                var vib = data.record.isTask === 1 && data.record.sendState === 0;
+                    //                return vib;
+                    //            },
+                    //            action: function (data) {
+                    //                _createOrEditModal.open({ id: data.record.id });
+                    //            }
+                    //        },
+                    //        {
+                    //            text: app.localize('Delete'),
+                    //            visible: function (data) {
+                    //                var vib = data.record.isTask === 1 && data.record.sendState === 0;
+                    //                return vib;
+                    //            },
+                    //            action: function (data) {
+                    //                deleteModel(data.record);
+                    //            }
+                    //        },
+                    //        {
+                                
+                    //        }
+                    //        ]
+                    //    }
+                    //},
+                    {
+                        targets: 1,
+                        data: "name"
+                    },
+                    {
+                        targets: 2,
+                        data: "filePathOrUrl",
+                        render: function (t) {
+                            return "<div align='center' style='width:100px;height:50px;'><a href='" + t + "' target='_blank' ><image src='" + t + "' alt='' style='max-width:100%;max-height:100%;' /></a></div>";
+                        }
+                    },
+                    {
+                        targets: 3,
+                        data: "title"
+                    },
+                    {
+                        targets: 4,
+                        data: "messageType",
+                        render: function (t) {
+                            return MpMessageType[t];
+                        }
+
+                    }
+                    , {
+                        targets: 5,
+                        data: "isTask",
+                        render: function (isTask) {
+                            return isTask == 0 ? "即时任务" : "定时任务";
+                        }
+                    }
+                     , {
+                         targets: 6,
+                         data: "execTaskTime",
+                         render: function (time) {
+                             return time ? moment(time).format('YYYY-MM-DD HH:mm:ss') : "";
+                         }
+                     }
+
+                         , {
+                             targets: 7,
+                             data: "sendState",
+                             render: function (t) {
+                                 return MpMessageTaskState[t] !== undefined ? MpMessageTaskState[t] : '未知状态';
+                             }
+                         }
+                      , {
+                          targets: 8,
+                          data: "finishDate",
+                          render: function (time) {
+                              return time ? moment(time).format('YYYY-MM-DD HH:mm:ss') : "";
+                          }
+                      }
+                       , {
+                           targets: 9,
+                           data: "sendCount",
+                           render: function (count) {
+                               return count == null ? 0 : count;
+                           }
+                       }
+
+                        , {
+                            targets: 10,
+                            data: "successCount",
+                            render: function (count) {
+                                return count == null ? 0 : count;
+                            }
+                        }
+                        , {
+                            targets: 11,
+                            data: "failCount",
+                            render: function (count) {
+                                return count == null ? 0 : count;
+                            }
+                        }
+                    //, {
+                    //    targets: 12,
+                    //    data: "lastModificationTime",
+                    //    render: function (time) {
+                    //        return time ? moment(time).format('YYYY-MM-DD HH:mm:ss') : "";
+                    //    }
+                    //}
+                    , {
+                        targets: [ 0,1, 4, 5,6,7,8,9,10,11], //第1，2，5,6列
+                        createdCell: function (td, cellData, rowData, row, col) {
+                            var rowspan = 1;
+                            if (col == 1 || col == 4 || col == 5 || col == 6 || col == 7 || col == 8 || col == 9 || col == 10 || col == 11 || col == 0) {
+                                rowspan = rowData.rowSpan;
+                            }
+
+                            if (rowspan > 1) {
+                                $(td).attr('rowspan', rowspan);
+                                $(td).css('vertical-align', 'middle');
+
+                            }
+                            if (rowspan === 0) {
+                                $(td).remove();
+                            }
+                        }
+
+                    }
+                    
+                ],
+                "fnInitComplete": function (oSettings, json) {
+
+                    //alert('DataTables has finished its initialisation.');
+
+                        //var columnName = "name,url,messageType,lastModificationTime";
+                        //mergeTable(columnName);
+
+                }
+            });
+            
+
+        });
+
+    })();
+
+</script>

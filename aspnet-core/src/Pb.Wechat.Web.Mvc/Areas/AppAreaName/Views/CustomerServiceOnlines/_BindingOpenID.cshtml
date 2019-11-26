@@ -1,0 +1,37 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+
+<style type="text/css">
+    #qrcode {
+        width: 100px;
+        height: 100px;
+        margin-top: 15px;
+    }
+</style>
+<script src="~/QrCode/qrcode.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        app.modals.BindingOpenIDModal = function () {
+            $(".modal-dialog").css("width", '480px');
+            debugger;
+            new QRCode(document.getElementById("qrcode"), url);  // 设置要生成二维码的链接
+        };
+    })(jQuery);
+</script>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">
+        <span>客服账号绑定</span>
+    </h4>
+</div>
+
+<div class="modal-body" style="height:340px;" >
+
+    <div id="qrcode" style="margin-left:100px;"></div>
+    <script type="text/javascript">
+         var url = '@ViewBag.BindingUrl' + '?token=' + '@ViewBag.Token' +'&needRegister=0&baseEncryp=0&reurl='+'@ViewBag.Reurl';
+    </script>
+</div>
+<div class="modal-footer" style="text-align:left;margin-left:50px;">
+
+</div>
+

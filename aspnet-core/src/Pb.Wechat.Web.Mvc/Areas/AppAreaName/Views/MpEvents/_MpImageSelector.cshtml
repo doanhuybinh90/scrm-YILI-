@@ -1,0 +1,17 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel("选择图片"))
+<div class="modal-body">
+    <form name="DataForm2" role="form" novalidate class="form-validation">
+        <table id="FormTable2" class="display table table-striped table-bordered table-hover dt-responsive ">
+            <thead>
+                <tr>
+                    <th>@L("Actions")</th>
+                    @*<th>ID</th>*@
+                    <th>名称</th>
+                    <th>缩略图</th>
+                </tr>
+            </thead>
+        </table>
+    </form>
+</div>
+@*@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")*@

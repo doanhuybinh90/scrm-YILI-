@@ -1,0 +1,26 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMediaImageTypes
+@model CreateOrEditMpMediaImageTypeViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.MediaTypeName) : L("Create")))
+
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+        <input type="hidden" id="MpID" name="MpID" value="@Model.MpID" />
+
+        
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MediaTypeName">类型名称</label>
+            <input class="form-control edited" type="text" name="MediaTypeName" value="@Model.MediaTypeName" required maxlength="500">
+        </div>
+
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,0 +1,37 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpEvents
+@model CreateOrEditMpEventViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.MpID) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+        <input type="hidden" name="MpID" value="@Model.MpID" />
+        @*<input type="hidden" id="MediaID" name="MediaID" value="@Model.MediaID" />
+            <input type="hidden" id="FileID" name="FileID" value="@Model.FileID" />*@
+
+        @*<div class="form-group form-row-seperated form-md-floating-label">
+                <label for="Name">标题</label>
+                <input class="form-control edited" type="text" name="Title" value="@Model.Title" required maxlength="50">
+            </div>
+            <div class="form-group form-row-seperated form-md-floating-label">
+                <label for="Name">备注</label>
+                <input class="form-control edited " type="text" name="Description" value="@Model.Description" required maxlength="500">
+            </div>*@
+
+    </form>
+    @*<form id="UploadPicModalForm" method="POST" action="@(AppConsts.MvcAppPath +"Upload/UploadMatialVoice")">
+            <div class="form-group">
+                <input type="file" name="UploadPic" />
+                <span class="help-block m-b-none">语音内容：格式支持mp3、wma、wav、amr，文件大小不超过30M，语音时长不超过30分钟。</span>
+            </div>
+        </form>*@
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

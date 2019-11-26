@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <script src=http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js></script>
+    <title></title>
+    <link rel=stylesheet href=//at.alicdn.com/t/font_568976_hrdywxkozkyy14i.css>
+    <link rel=stylesheet href="~/view-resources/Views/YiliBabyClub/css/reset.css?v=20" asp-append-version=true>
+    <link rel=stylesheet href="~/view-resources/Views/YiliBabyClub/css/common.css" asp-append-version=true>
+    <script>
+        (function(){
+            var rootPath = '@ViewBag.RootPath';
+            var mallToken='@ViewBag.MallApiToken';
+            var oauthPath='@ViewBag.OAuthPath';
+	        var globalConfig = {
+                APIURL: rootPath + 'meichi/',
+                OAuthPath: oauthPath,
+		        TOKEN:mallToken,
+		        REGURL: rootPath+'yilibabyclub/registfromwx'
+	        }
+	        window.globalConfig = globalConfig;
+        })();
+    </script>
+    <link href="~/view-resources/Views/YiliBabyClub/css/app.710a8a0a8ae59bfcc22654c49a42ec96.css" asp-append-version=true rel=stylesheet>
+</head>
+<body>
+    <div id=app></div>
+    <script type=text/javascript src="~/view-resources/Views/YiliBabyClub/js/manifest.6acda8c388f7d5073c5d.js"  asp-append-version=true></script>
+    <script type=text/javascript src="~/view-resources/Views/YiliBabyClub/js/vendor.6fbb30d867580bade5e5.js"  asp-append-version=true></script>
+    <script type=text/javascript src="~/view-resources/Views/YiliBabyClub/js/app.35e79f60c5608f4dbdf0.js" asp-append-version=true></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+ALTER TABLE dbo.CustomerServiceOnlines ADD AutoJoinReply BIT DEFAULT 0,AutoJoinReplyText NVARCHAR(200) NULL,AutoLeaveReply BIT DEFAULT 0,AutoLeaveReplyText NVARCHAR(200) NULL

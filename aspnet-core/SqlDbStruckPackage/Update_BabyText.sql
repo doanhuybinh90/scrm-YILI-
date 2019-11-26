@@ -1,0 +1,1 @@
+ALTER TABLE dbo.MpBabyTexts ADD BabyTextType NVARCHAR(50) NULL,UnbornWeek INT DEFAULT(0),OneYearMonth INT DEFAULT(0),OneYearWeek INT DEFAULT(0),OverYear INT DEFAULT(0),OverMonth INT DEFAULT(0)

@@ -1,0 +1,7 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpGroups
+@using Pb.Wechat.MpGroups
+@model GroupTreeItemModel
+
+<div class="permission-tree">
+    @Html.Partial("~/Areas/AppAreaName/Views/MpGroups/_GroupTreeItem.cshtml", new GroupTreeItemModel(Model.ModelList, 0,null,Model.SelectedItems))
+</div>

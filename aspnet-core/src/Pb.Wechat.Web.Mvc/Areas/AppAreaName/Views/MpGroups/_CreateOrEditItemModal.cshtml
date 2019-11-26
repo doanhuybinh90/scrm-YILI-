@@ -1,0 +1,425 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpGroups.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpGroups
+
+@model CreateOrEditMpGroupItemViewModel
+
+
+
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-8">
+            <form name="DataForm" role="form" novalidate class="form-actions">
+                @if (Model.IsEditMode)
+    {
+            <input type="hidden" name="Id" value="@Model.Id" />
+}
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+                <input type="hidden" id="ParentID" name="ParentID" value="@Model.ParentID" />
+                <input type="hidden" id="LastBuyProduct" name="LastBuyProduct" value="@Model.LastBuyProduct" />
+                <input type="hidden" id="OfficialCity" name="OfficialCity" value="@Model.OfficialCity" />
+                <input type="hidden" id="OrganizeCity" name="OrganizeCity" value="@Model.OrganizeCity" />
+                <input type="hidden" id="Name" name="Name" value="@Model.Name" />
+                <input type="hidden" id="ChannelID" name="ChannelID" value="@Model.ChannelID" />
+                <input type="hidden" id="ChannelName" name="ChannelName" value="@Model.ChannelName" />
+                <input type="hidden" id="MemberCategory" name="MemberCategory" value="@Model.MemberCategory" />
+                <input type="hidden" id="TargetID" name="TargetID" value="@Model.TargetID" />
+                <input type="hidden" id="TargetName" name="TargetName" value="@Model.TargetName" />
+                <div class="form-group form-row-seperated form-md-floating-label">
+                    <label for="IsMember">粉丝分类</label>
+                    @Html.DropDownListFor(
+c => c.IsMember,
+EnumHelper.GetEnum(typeof(IsMemberEnum)).Select(c => new SelectListItem() { Value = c.Item1, Text = c.Item2 }),
+new
+{
+@class = "form-control bs-select",
+data_live_search = "true",
+id = "IsMember"
+})
+                </div>
+
+                <div class="memberDiv" style="display:none;">
+                    <div>
+                        <label for="OrganizeCity">管理区域</label>
+                        <button type="button" id="multiple_all_ocity" style="float:right;font-size:10px;border:none;background-color:white;">一键全选</button>
+                        <select class="form-control" id="multiple_choice_ocity" multiple="multiple" style="width:100%;"></select>
+                        @*<input type="checkbox" id="multiple_all_ocity" value="0" /> <label for="Name">全选</label>*@
+                    </div>
+                    <div>
+                        <label for="OrganizeCity">行政城市</label>
+                        <button type="button" id="multiple_all_city" style="float:right;font-size:10px;border:none;background-color:white;">一键全选</button>
+                        <select class="form-control" id="multiple_choice_city" multiple="multiple" style="width:100%;"></select>
+                    </div>
+
+                    <div>
+                        <label for="LastBuyProduct">最后充值产品</label>
+                        <button type="button" id="multiple_all_prod" style="float:right;font-size:10px;border:none;background-color:white;">一键全选</button>
+                        <select class="form-control" id="multiple_choice_prod" multiple="multiple" style="width:100%;"></select>
+                    </div>
+
+                    <div>
+                        <label for="MemberCategory">会员类型</label>
+                        <button type="button" id="multiple_all_memType" style="float:right;font-size:10px;border:none;background-color:white;">一键全选</button>
+                        <select class="form-control" id="multiple_choice_memType" multiple="multiple" style="width:100%;"></select>
+
+                    </div>
+                    <div>
+                        <label for="BaySex">宝宝性别</label>
+                        <select class="form-control select" id="selSex" name="BaySex">
+                            <option value="0">所有</option>
+                            <option value="1">男性</option>
+                            <option value="2">女性</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group form-row-seperated form-md-floating-label">
+                        <label for="MotherType">会员阶段</label>
+                        @Html.DropDownListFor(
+c => c.MotherType,
+EnumHelper.GetEnum(typeof(MotherType)).Select(c => new SelectListItem() { Value = c.Item1, Text = c.Item2 }),
+new
+{
+@class = "form-control bs-select",
+data_live_search = "true",
+id = "MotherType"
+})
+                    </div>
+
+
+                    <div class="OtherDiv" style="display:none;">
+                        <label for="">宝宝生日</label>
+                        <input type="datetime" name="BeginBabyBirthday" value="@Model.BeginBabyBirthday" class="date-picker" id="BeginBabyBirthday" style="width:40%;">
+
+                        -
+                        <input type="datetime" name="EndBabyBirthday" value="@Model.EndBabyBirthday" class="date-picker" id="EndBabyBirthday" style="width:40%;">
+
+                    </div>
+                    <div>
+                        <label for="">剩余积分</label>
+                        <input type="text" name="BeginPointsBalance" value="@Model.BeginPointsBalance" style="width:40%;">
+                        -
+                        <input type="text" name="EndPointsBalance" value="@Model.EndPointsBalance" style="width:40%;">
+                    </div>
+
+                </div>
+
+                <div class="tagDiv" style="display:none;">
+                    <div>
+                        <label for="OrganizeCity">标签</label>
+                        <button type="button" id="multiple_all_tag" style="float:right;font-size:10px;border:none;background-color:white;">一键全选</button>
+                        <select class="form-control" id="multiple_choice_tag" multiple="multiple" style="width:100%;"></select>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" id="saveButton" class="btn blue save-button"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    var service = abp.services.app.mpGroup;
+    if ($("#MotherType").val() === "Other")
+    {
+        $(".OtherDiv").show();
+    }
+    if ($("#IsMember").val() === "Member")
+    {
+        $(".memberDiv").show();
+        $(".tagDiv").hide();
+    }
+    else if ($("#IsMember").val() === "Tag")
+    {
+        $(".memberDiv").hide();
+        $(".tagDiv").show();
+    }
+    if ($("input[name=BeginPointsBalance]").val()==="-1")
+    {
+        $("input[name=BeginPointsBalance]").val("");
+    }
+    if ($("input[name=EndPointsBalance]").val() === "-1") {
+        $("input[name=EndPointsBalance]").val("");
+    }
+    $("#MotherType").change(function () {
+       
+        var _motherType = $("#MotherType").val();
+        if (_motherType === "ALL")
+        {
+            $(".OtherDiv").hide();
+           
+        }else if (_motherType==="Other")
+        {
+            $(".OtherDiv").show();
+          
+        }
+        else
+        {
+            $(".OtherDiv").hide();
+           
+        }
+    })
+    $("#IsMember").change(function () {
+        var _IsMember = $("#IsMember").val();
+        if (_IsMember === "Member") {
+            $(".memberDiv").show();
+            $(".tagDiv").hide();
+        }
+        else if (_IsMember === "Tag") {
+            $(".memberDiv").hide();
+            $(".tagDiv").show();
+        }
+        else { 
+
+            $(".memberDiv,.tagDiv").hide();
+        }
+    })
+    $('.date-picker').datetimepicker({
+        locale: abp.localization.currentLanguage.name,
+        format: 'L'
+    });
+    //标签多选
+    if (TagObj && TagObj.length > 0) {
+        $("#multiple_choice_tag").empty;
+        $.each(TagObj, function (i, val) {
+            var option = $("<option>").val(val.id).text(val.text);
+            $("#multiple_choice_tag").append(option);
+
+        });
+
+    }
+    var multipletag = $('#multiple_choice_tag').select2({
+        placeholder: '请选择',
+        allowClear: true,
+        multiple: true
+
+    });
+
+    $('#multiple_all_tag').click(function (event) {
+        event.preventDefault();
+        var res = [];
+        $(this).next('select').find('option').each(function (i, ele) {
+            res.push($(ele).val())
+        });
+        $(multipletag).val(res).trigger('change');
+    });
+
+    if (OrganizeCityObj && OrganizeCityObj.length > 0)
+    {
+        $("#multiple_choice_ocity").empty;
+        $.each(OrganizeCityObj, function (i, val) {
+            var option = $("<option>").val(val.id).text(val.text);
+            $("#multiple_choice_ocity").append(option);
+
+        });
+
+    }
+
+    var multipleocity = $('#multiple_choice_ocity').select2({
+        placeholder: '请选择',
+        allowClear: true,
+        multiple: true
+
+    });
+
+    $('#multiple_all_ocity').click(function (event) {
+        event.preventDefault();
+        var res = [];
+        $(this).next('select').find('option').each(function (i, ele) {
+            res.push($(ele).val())
+        });
+        $(multipleocity).val(res).trigger('change');
+    });
+
+
+    if (OfficialCityObj && OfficialCityObj.length > 0) {
+        $("#multiple_choice_city").empty;
+        $.each(OfficialCityObj, function (i, val) {
+            var option = $("<option>").val(val.id).text(val.text);
+            $("#multiple_choice_city").append(option);
+
+        });
+
+    }
+    var multiplecity = $('#multiple_choice_city').select2({
+        placeholder: '请选择',
+        allowClear: true,
+        multiple: true
+
+    });
+
+    $('#multiple_all_city').click(function (event) {
+        event.preventDefault();
+        var res = [];
+        $(this).next('select').find('option').each(function (i, ele) {
+            res.push($(ele).val())
+        });
+        $(multiplecity).val(res).trigger('change');
+    });
+
+
+    if (LastBuyProductObj && LastBuyProductObj.length > 0) {
+        $("#multiple_choice_prod").empty;
+        $.each(LastBuyProductObj, function (i, val) {
+            var option = $("<option>").val(val.id).text(val.text);
+            $("#multiple_choice_prod").append(option);
+
+        });
+
+    }
+    var multipleprod = $('#multiple_choice_prod').select2({
+        placeholder: '请选择',
+        allowClear: true,
+        multiple: true
+
+    });
+
+    $('#multiple_all_prod').click(function (event) {
+        event.preventDefault();
+        var res = [];
+        $(this).next('select').find('option').each(function (i, ele) {
+            res.push($(ele).val())
+        });
+        $(multipleprod).val(res).trigger('change');
+    });
+
+
+    if (MemberTypeObj && MemberTypeObj.length > 0) {
+        $("#multiple_choice_memType").empty;
+        $.each(MemberTypeObj, function (i, val) {
+            var option = $("<option>").val(val.id).text(val.text);
+            $("#multiple_choice_memType").append(option);
+        });
+
+    }
+    var multiplememType = $('#multiple_choice_memType').select2({
+        placeholder: '请选择',
+        allowClear: true,
+        multiple: true
+    });
+
+    $('#multiple_all_memType').click(function (event) {
+        event.preventDefault();
+        var res = [];
+        $(this).next('select').find('option').each(function (i, ele) {
+            res.push($(ele).val())
+        });
+        $(multiplememType).val(res).trigger('change');
+    });
+
+    var _ocityValue = $("input[name=OrganizeCity]").val();
+    if (_ocityValue && _ocityValue !== null && _ocityValue !== "")
+    {
+        $("#multiple_choice_ocity").val(_ocityValue.split(',')).trigger('change');
+    }
+
+    var _cityValue = $("input[name=OfficialCity]").val();
+    if (_cityValue && _cityValue !== null && _cityValue !== "") {
+
+        $("#multiple_choice_city").val(_cityValue.split(',')).trigger('change');
+    }
+    var _prodValue = $("input[name=LastBuyProduct]").val();
+    if (_prodValue && _prodValue !== null && _prodValue !== "") {
+
+        $("#multiple_choice_prod").val(_prodValue.split(',')).trigger('change');
+    }
+
+    var _channelValue = $("input[name=ChannelID]").val();
+    if (_channelValue && _channelValue !== null && _channelValue !== "") {
+        $("#multiple_choice_channel").val(_channelValue.split(',')).trigger('change');
+    }
+
+    var _memTypeValue = $("input[name=MemberCategory]").val();
+    if (_memTypeValue && _memTypeValue !== null && _memTypeValue !== "") {
+        $("#multiple_choice_memType").val(_memTypeValue.split(',')).trigger('change');
+    }
+    var _tagValue = $("input[name=TargetID]").val();
+    if (_tagValue && _tagValue !== null && _tagValue !== "") {
+        $("#multiple_choice_tag").val(_tagValue.split(',')).trigger('change');
+    }
+
+    $("#saveButton").click(function () {
+        var reg = new RegExp("^[0-9]*$");
+        var objA = $("input[name=BeginPointsBalance]").val();
+        var objB = $("input[name=EndPointsBalance]").val();
+        if (objA === "")
+        {
+            objA = -1;
+            $("input[name=BeginPointsBalance]").val(-1);
+        }
+
+        if (objB === "")
+        {
+            objB = -1;
+            $("input[name=EndPointsBalance]").val(-1);
+        }
+
+        if (!reg.test(objA) || !reg.test(objB)) {
+            if (objA === -1 || objB === -1)
+            {
+            }
+            else
+            {
+                abp.message.info("积分一栏请输入数字!");
+                return;
+            }
+
+        }
+
+            var ocitylist = $("#multiple_choice_ocity").select2("val");
+            var citylist = $("#multiple_choice_city").select2("val");
+            var prodlist = $("#multiple_choice_prod").select2("val");
+            var channellist = $("#multiple_choice_channel").select2("val");
+            var taglist = $("#multiple_choice_tag").select2("data");
+
+
+            var channelTextlist = $("#multiple_choice_channel").select2("data");
+            var memTypelist = $("#multiple_choice_memType").select2("val");
+
+
+            var ocityString = "";
+            if (ocitylist !== "" && ocitylist!==null)
+                ocityString = ocitylist.join(",");
+
+            var cityString = "";
+            if (citylist !== "" && citylist !== null)
+                cityString = citylist.join(",");
+            var prodString = "";
+            if (prodlist !== "" && prodlist !== null)
+                prodString = prodlist.join(",");
+
+            var tagIdString = "";
+            var tagNameString = "";
+            if (taglist !== null && taglist.length > 0) {
+                tagNameString = taglist.map(function (item) { return item.text; }).join(",");
+                tagIdString = taglist.map(function (item) { return item.id; }).join(",");
+            }
+
+            var memTypeString = "";
+            if (memTypelist !== "" && memTypelist !== null)
+                memTypeString = memTypelist.join(",");
+            $("#LastBuyProduct").val(prodString);
+            $("#OfficialCity").val(cityString);
+            $("#OrganizeCity").val(ocityString);
+            $("#MemberCategory").val(memTypeString);
+            $("#TargetID").val(tagIdString);
+            $("#TargetName").val(tagNameString);
+            var dataForm = $('form[name=DataForm]');
+            var model = dataForm.serializeFormToObject();
+            var savePromise =service.saveItem(model);
+            savePromise.done(function () {
+                abp.notify.info(app.localize('SavedSuccessfully'));
+                abp.event.trigger('app.createOrEditModalSaved');
+            });
+        })
+
+</script>

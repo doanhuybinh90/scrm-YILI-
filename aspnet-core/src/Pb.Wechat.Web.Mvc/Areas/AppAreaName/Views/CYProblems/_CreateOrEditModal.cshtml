@@ -1,0 +1,49 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CYProblems.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CYProblems
+@model CreateOrEditCYProblemViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.CYProblemId) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+		<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Id">Id</label>
+            <input class="form-control edited" type="text" name="Id" value="@Model.Id" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ATime">ATime</label>
+            <input class="form-control edited" type="text" name="ATime" value="@Model.CreationTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CYProblemId">CYProblemId</label>
+            <input class="form-control edited" type="text" name="CYProblemId" value="@Model.CYProblemId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CreationTime">CreationTime</label>
+            <input class="form-control edited" type="text" name="CreationTime" value="@Model.CreationTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="FansId">FansId</label>
+            <input class="form-control edited" type="text" name="FansId" value="@Model.FansId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="LastModificationTime">LastModificationTime</label>
+            <input class="form-control edited" type="text" name="LastModificationTime" value="@Model.LastModificationTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="OpenId">OpenId</label>
+            <input class="form-control edited" type="text" name="OpenId" value="@Model.OpenId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="State">State</label>
+            <input class="form-control edited" type="text" name="State" value="@Model.State" required>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

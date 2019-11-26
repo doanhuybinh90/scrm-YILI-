@@ -1,0 +1,104 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.Authorization
+@using Pb.Wechat.MpSolicitudeTexts.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Startup
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.MpSolicitudeTexts;
+}
+@section Styles
+{
+    <environment names="Development">
+        <link rel="stylesheet" href="~/view-resources/Areas/AppAreaName/Views/MpSolicitudeTexts/Index.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/view-resources/Areas/AppAreaName/Views/MpSolicitudeTexts/Index.min.css" asp-append-version="true" />
+    </environment>
+}
+@section Scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSolicitudeTexts/_CreateOrEditModal.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSolicitudeTexts/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSolicitudeTexts/_CreateOrEditModal.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSolicitudeTexts/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row margin-bottom-5">
+    <div class="col-xs-6">
+        <div class="page-head">
+            <div class="page-title">
+                <h1>
+                    <span>关怀回复管理</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">
+        @if (IsGranted(AppPermissions.Pages_MpSolicitude_Texts))
+        {
+            <button id="CreateNewModelButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Create")</button>
+        }
+    </div>
+</div>
+
+<div class="portlet light margin-bottom-0">
+    <div class="portlet-body">
+        <div class="form">
+            <form id="FilterForm" class="horizontal-form">
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">宝宝周龄</label>
+                                <input type="text" name="BabyAge" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">文案内容</label>
+                                <input type="text" name="Keyword" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="AdvacedAuditFiltersArea" style="display: none">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-10">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <button id="ExportListToExcelButton" class="btn green-haze"><i class="fa fa-file-excel-o"></i> @L("ExportToExcel")</button>
+                        <button id="RefreshListButton" class="btn blue"><i class=" fa fa-refresh"></i> @L("Refresh")</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table id="FormTable" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+            <thead>
+                <tr>
+                    <th>@L("Actions")</th>
+                    <th>宝宝年龄</th>
+                    <th>文案</th>
+                    <th>最后更新时间</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

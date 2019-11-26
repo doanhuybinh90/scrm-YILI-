@@ -1,0 +1,97 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpSolicitudeSettings.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpSolicitudeSettings
+@model CreateOrEditMpSolicitudeSettingViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit")) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+		<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Id">Id</label>
+            <input class="form-control edited" type="text" name="Id" value="@Model.Id" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ArticleGroupID">ArticleGroupID</label>
+            <input class="form-control edited" type="text" name="ArticleGroupID" value="@Model.ArticleGroupID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ArticleGroupMediaID">ArticleGroupMediaID</label>
+            <input class="form-control edited" type="text" name="ArticleGroupMediaID" value="@Model.ArticleGroupMediaID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ArticleGroupName">ArticleGroupName</label>
+            <input class="form-control edited" type="text" name="ArticleGroupName" value="@Model.ArticleGroupName" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ArticleID">ArticleID</label>
+            <input class="form-control edited" type="text" name="ArticleID" value="@Model.ArticleID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ArticleMediaID">ArticleMediaID</label>
+            <input class="form-control edited" type="text" name="ArticleMediaID" value="@Model.ArticleMediaID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ArticleName">ArticleName</label>
+            <input class="form-control edited" type="text" name="ArticleName" value="@Model.ArticleName" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Content">Content</label>
+            <input class="form-control edited" type="text" name="Content" value="@Model.Content" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="DelayMinutes">DelayMinutes</label>
+            <input class="form-control edited" type="text" name="DelayMinutes" value="@Model.DelayMinutes" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ImageID">ImageID</label>
+            <input class="form-control edited" type="text" name="ImageID" value="@Model.ImageID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ImageMediaID">ImageMediaID</label>
+            <input class="form-control edited" type="text" name="ImageMediaID" value="@Model.ImageMediaID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ImageName">ImageName</label>
+            <input class="form-control edited" type="text" name="ImageName" value="@Model.ImageName" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MediaType">MediaType</label>
+            <input class="form-control edited" type="text" name="MediaType" value="@Model.MediaType" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MpID">MpID</label>
+            <input class="form-control edited" type="text" name="MpID" value="@Model.MpID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="VideoID">VideoID</label>
+            <input class="form-control edited" type="text" name="VideoID" value="@Model.VideoID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="VideoMediaID">VideoMediaID</label>
+            <input class="form-control edited" type="text" name="VideoMediaID" value="@Model.VideoMediaID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="VideoName">VideoName</label>
+            <input class="form-control edited" type="text" name="VideoName" value="@Model.VideoName" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="VoiceID">VoiceID</label>
+            <input class="form-control edited" type="text" name="VoiceID" value="@Model.VoiceID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="VoiceMediaID">VoiceMediaID</label>
+            <input class="form-control edited" type="text" name="VoiceMediaID" value="@Model.VoiceMediaID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="VoiceName">VoiceName</label>
+            <input class="form-control edited" type="text" name="VoiceName" value="@Model.VoiceName" required>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

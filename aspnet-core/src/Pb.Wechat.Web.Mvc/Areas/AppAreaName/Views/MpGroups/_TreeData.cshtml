@@ -1,0 +1,82 @@
+﻿@using Pb.Wechat.MpGroups
+@model List<MpGroup>
+<div class="dataTables_wrapper no-footer">
+    <table class="display table table-striped table-bordered table-hover dt-responsive nowrap dataTable no-footer dtr-inline tree" style="width: 1012px;" role="grid" aria-describedby="FormTable_info">
+        <thead>
+            <tr>
+                <th>标签名称</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>标签人数</th>
+                <th>@L("Actions")</th>
+            </tr>
+        </thead>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                string parentIdString = "";
+                if (item.ParentID != 0)
+                {
+                    parentIdString = "treegrid-parent-" + item.ParentID;
+                }
+                <tr class="treegrid-@item.Id @parentIdString">
+                    <td>@item.Name</td>
+                    <td>@item.CreationTime</td>
+                    <td>@item.LastModificationTime</td>
+                    <td>@item.FansCount</td>
+                    <td>
+                        <div class="btn-group dropdown action-button">
+                            <button class="dropdown-toggle btn btn-xs btn-primary blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fa fa-cog"></i>
+                                操作
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="edit">
+                                    <a href="javascript:void(0);" onclick="edit('@item.Id')">修改</a>
+                                </li>
+                                <li class="del">
+                                    <a href="javascript:void(0);" onclick="del('@item.Id')">删除</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        }
+    </table>
+</div>
+<script type="text/javascript">
+    function edit(id) {
+        var _createModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/MpGroups/CreateOrEditModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/MpGroups/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditDataModal'
+        });
+        _createModal.open({ id: id });
+    }
+    function del(id) {
+        var dataService = abp.services.app.mpGroup;
+        dataService.get({ id: id }).done(function (data) {
+            abp.message.confirm(
+                app.localize('AreYouSureToDeleteSomething', data.name),
+                function (isConfirmed) {
+                    if (isConfirmed) {
+                        dataService.delete({
+                            id: data.id
+                        }).done(function () {
+                            refreshPage();
+                            abp.notify.success(app.localize('SuccessfullyDeleted'));
+                        });
+                    }
+                }
+            );
+        });;
+        
+        
+
+    }
+</script>

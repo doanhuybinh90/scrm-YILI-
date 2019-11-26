@@ -1,0 +1,86 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.Authorization
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CYConfigs
+@using Pb.Wechat.Web.Areas.AppAreaName.Startup
+@model CreateOrEditCYConfigViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.CYProblems;
+}
+@section Styles
+    {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/view-resources/Areas/AppAreaName/Views/CYConfigs/Index.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/view-resources/Areas/AppAreaName/Views/CYConfigs/Index.min.css" asp-append-version="true" />
+    </environment>
+}
+@section Scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/Areas/AppAreaName/Views/CYConfigs/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Areas/AppAreaName/Views/CYConfigs/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row margin-bottom-5">
+    <div class="col-xs-6">
+        <div class="page-head">
+            <div class="page-title">
+                <h1>
+                    <span>春雨医生</span> <small>配置信息</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">
+        @if (IsGranted(AppPermissions.Pages_CY_Configs))
+        {
+            <button id="SaveAllSettingsButton" class="btn btn-primary blue"><i class="fa fa-floppy-o"></i> @L("SaveAll")</button>
+        }
+    </div>
+</div>
+
+<div class="portlet light margin-bottom-0">
+    <div class="portlet-body">
+        <div class="form">
+            <form id="EmailSmtpSettingsForm">
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="text" name="CreateProblemPreText" class="form-control edited" value="@Model.CreateProblemPreText">
+                    <label>引导用户提问的推送文案</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="number" name="CreateProblemPreTextLength" class="form-control edited" value="@Model.CreateProblemPreTextLength">
+                    <label>用户提问最小长度</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="text" name="CreateProblemText" class="form-control edited" value="@Model.CreateProblemText">
+                    <label>创建问题成功后的推送文案</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="text" name="CloseProblemText" class="form-control edited" value="@Model.CloseProblemText">
+                    <label>问题关闭后的推送文案</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="text" name="NoOperationText" class="form-control edited" value="@Model.NoOperationText">
+                    <label>长时间不操作的提示文字</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="number" name="NoOperationMinute" class="form-control edited" value="@Model.NoOperationMinute">
+                    <label>长时间不操作判定时长（分钟）</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="text" name="AnswerTemplete" class="form-control edited" value="@Model.AnswerTemplete">
+                    <label>医生文字回答模板</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <input type="text" name="AnswerTemplete" class="form-control edited" value="@Model.AnswerTemplete">
+                    <label>问题未关闭时，接入客服系统的推送文案</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

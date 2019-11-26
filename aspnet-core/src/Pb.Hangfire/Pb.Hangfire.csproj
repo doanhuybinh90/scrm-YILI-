@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Jobs\SendMessageEvent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Abp" Version="3.0.0" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="HangFire" Version="1.6.16" />
+    <PackageReference Include="HangFire.Core" Version="1.6.16" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.5.2" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.6.16" />
+    <PackageReference Include="MySql.Data" Version="6.10.6" />
+    <PackageReference Include="Senparc.Weixin" Version="4.20.2" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="14.10.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pb.Wechat.Application\Pb.Wechat.Application.csproj" />
+  </ItemGroup>
+
+</Project>

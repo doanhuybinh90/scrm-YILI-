@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天hub测试</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <!--这里要注意,这是虚拟目录,也就是你在OWIN Startup中注册的地址-->
+    <script src="~/signalr/hubs"></script>
+</head>
+<body>
+    <div>
+        <div>messageToken:<p><input id="messageToken" /></p></div>
+        <div><p id="loginstate"><input id="state" value="0" placeholder="请输入连接状态" /></p><button id="btnconnect">设置</button></div>
+        
+        <div>待接入用户数量:<p id="waituser"></p></div>
+        <div id="messagelist">聊天信息:</div>
+    </div>
+    <script type="text/javascript">
+        var Clients = [], connectstate = 0;;
+            // 声明一个代理
+            var hubProxy = $.connection.messageHub;
+            $(function () {
+                hubProxy.all.unConnectedNotice = function (usercount) {
+                    $("#waituser").html(usercount);
+                };
+
+                hubProxy.client.getMessage = function (openId, nickName, headImgUrl, replyType, msgType, msgContent, transferCustomerOpenId, transferCustomerNickName) {
+                    $("#messagelist").append("<p>openId:" + openId + " nickName:" + nickName + " headImgUrl:" + headImgUrl + " replyType:" + replyType + " msgType:" + msgType + " msgContent:" + msgContent + " transferCustomerOpenId:" + transferCustomerOpenId + " transferCustomerNickName:" + transferCustomerNickName +"</p>");
+                };
+
+                $("#ystd-btn-submit").click(function () {
+                    if (connectstate == 0) {
+                        connectstate = 1;
+                        // 启动 connection
+                        $.connection.hub.start().done(function () {
+                            connectstate = 2;
+                            hubProxy.server.setState($("#messageToken").val(), parseInt($("#state").val()));
+                        });
+                    }
+                    else if (connectstate == 2) {
+                        hubProxy.server.setState($("#messageToken").val(), parseInt($("#state").val()));
+                    }
+                });	
+            });
+    </script>
+
+</body>
+</html>

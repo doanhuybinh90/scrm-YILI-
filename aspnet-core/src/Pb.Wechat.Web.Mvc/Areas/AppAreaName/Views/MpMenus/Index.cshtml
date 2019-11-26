@@ -1,0 +1,94 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.Authorization
+@using Pb.Wechat.MpMenus.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Startup
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMenus
+@model MpMenuDto
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.MpMenus;
+}
+
+@section Scripts
+    {
+
+    <environment names="Development">
+        @*<script src="~/view-resources/Areas/AppAreaName/Views/MpMenus/_CreateOrEditModal.js" asp-append-version="true"></script>*@
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpMenus/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        @*<script src="~/view-resources/Areas/AppAreaName/Views/MpMenus/_CreateOrEditModal.min.js" asp-append-version="true"></script>*@
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpMenus/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row margin-bottom-5">
+    <div class="col-xs-6">
+        <div class="page-head">
+            <div class="page-title">
+                <h1>
+                    <span>菜单管理</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">
+        @*@if (IsGranted(AppPermissions.Pages_MpMenus))
+            {
+                <button id="CreateNewModelButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Create")</button>
+            }*@
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="portlet light">
+            <div class="portlet-title">
+                @*<div class="caption">
+                        <span class="caption-subject bold uppercase">
+                            菜单列表
+                        </span>
+                    </div>*@
+                <div class="caption">
+                    @if (IsGranted(AppPermissions.Pages_MpMenus))
+                    {
+                        <a id="AddRootUnitButton" class="btn btn-circle green-haze">
+                            <i class="fa fa-plus"></i> 添加主菜单
+                        </a>
+                        <a id="SyncButton" class="btn btn-circle green-haze">
+                            <i class="fa fa-upload"></i> 同步至微信
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="MpMenuEditTree"></div>
+                <div id="MpMenuTreeEmptyInfo" ng-if="!vm.organizationTree.unitCount" class="text-muted">
+                    尚未定义菜单
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="portlet light">
+            @*<div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">
+                        <span id="SelectedOuRightTitle"></span>
+                    </span>
+                </div>
+
+            </div>*@
+            <div class="portlet-body">
+
+                <div id="editView"></div>
+                @*<div id="MenuContentEmptyInfo" class="text-muted">
+                        尚未选择菜单
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var selectId;
+</script>
+

@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"></Import>
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>Pb.Wechat.Application</AssemblyName>
+    <PackageId>Pb.Wechat.Application</PackageId>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>Pb.Wechat</RootNamespace>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MpMediaArticleGroupItems\**" />
+    <Compile Remove="MpSelfArticles\新文件夹\**" />
+    <Compile Remove="Wx\**" />
+    <EmbeddedResource Remove="MpMediaArticleGroupItems\**" />
+    <EmbeddedResource Remove="MpSelfArticles\新文件夹\**" />
+    <EmbeddedResource Remove="Wx\**" />
+    <None Remove="MpMediaArticleGroupItems\**" />
+    <None Remove="MpSelfArticles\新文件夹\**" />
+    <None Remove="Wx\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.2" />
+    <PackageReference Include="Senparc.Weixin" Version="4.20.2" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="14.10.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Drawing" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pb.Wechat.Core\Pb.Wechat.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CYConfigs\" />
+    <Folder Include="CYDoctors\" />
+    <Folder Include="CYProblemContents\" />
+    <Folder Include="MpSelfArticles\Dto\" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
+    <DefineConstants>FEATURE_LDAP;FEATURE_SIGNALR</DefineConstants>
+  </PropertyGroup>
+
+</Project>

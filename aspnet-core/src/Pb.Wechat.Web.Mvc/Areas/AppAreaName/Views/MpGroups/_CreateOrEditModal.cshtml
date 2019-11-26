@@ -1,0 +1,119 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpGroups
+@model CreateOrEditMpGroupViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<link href="~/view-resources/Areas/AppAreaName/Views/MpGroups/bootstrap-treeview.css" rel="stylesheet" />
+
+
+<script src="~/view-resources/Areas/AppAreaName/Views/MpGroups/bootstrap-treeview.js"></script>
+<script type="text/javascript">
+    var data1 = [];
+    var selectItems = [];
+    selectItems.push(1);
+
+    $(function () {
+        $.ajax({
+            type: "post",
+            url: abp.appPath +"AppAreaName/MpGroups/GetGroupSelector",
+            success: function (data, status) {
+                if (status == "success") {
+                    data1 = data.result;
+                }
+            },
+            error: function () {
+                toastr.error('Error');
+            },
+        });
+    });
+    function buildDomTree() {
+        var data = [];
+        var root = "根标签";
+        function walk(nodes, data) {
+            if (!nodes) {
+                return;
+            }
+            $.each(nodes, function (id, node) {
+                var obj = {
+                    id: node.id,
+                    text: node.name != null ? node.name : root
+                };
+                if (node.isLeaf = true) {
+                    obj.nodes = [];
+                    walk(node.children, obj.nodes);
+                }
+                data.push(obj);
+            });
+        }
+
+        walk(data1, data);
+        return data;
+    }
+
+    $("#txt_departmentname").click(function () {
+        var options = {
+            bootstrap2: false,
+            showTags: true,
+            levels: 5,
+            showCheckbox: true,
+            checkedIcon: "glyphicon glyphicon-check",
+            data: buildDomTree(),
+            onNodeSelected: function (event, data) {
+                $("#ParentID").val(data.id);
+                $("#txt_departmentname").val(data.text);
+                $("#treeview").hide();
+            }
+        };
+
+        $('#treeview').treeview(options);
+    });
+</script>
+
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-8">
+            <form name="DataForm" role="form" novalidate class="form-actions">
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                }
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+                <input type="hidden" id="ParentID" name="ParentID" value="@Model.ParentID" />
+                
+
+                <div class="form-group form-row-seperated form-md-floating-label">
+                    <label for="Name">标签名</label>
+                    <input class="form-control edited" type="text" name="Name" value="@Model.Name" required maxlength="50">
+                </div>
+                <div>
+                    <label for="ParentName">上级标签名称</label>
+                    <input type="text" readonly class="form-control edited" id="ParentName" name="ParentName" value="@Model.ParentName" />
+                    @*<input type="text" id="txt_departmentname" name="txt_departmentname" class="form-control" value="@Model.ParentName" onclick="$('#treeview').show()" placeholder="父标签选择">
+                    <div id="treeview" style="display: none;"></div>*@
+                </div>
+                @*<div class="form-group form-row-seperated form-md-floating-label">
+                    <label for="Name">创建时间</label>
+                    <input class="form-control edited " type="text" name="createTime" value="@Model.CreationTime" readonly maxlength="500">
+                </div>
+                <div class="form-group form-row-seperated form-md-floating-label">
+                    <label for="Name">更新时间</label>
+                    <input class="form-control edited" type="text" name="modifyTime" value="@Model.LastModificationTime" maxlength="200" readonly>
+
+                </div>
+
+                <div class="form-group form-row-seperated form-md-floating-label">
+                    <label for="Name">标签人数</label>
+                    <input class="form-control edited" type="text" name="count" value="@Model.FansCount" maxlength="200" readonly>
+                </div>*@
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

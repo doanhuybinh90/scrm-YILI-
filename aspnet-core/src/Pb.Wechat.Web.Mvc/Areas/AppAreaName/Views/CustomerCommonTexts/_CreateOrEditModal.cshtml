@@ -1,0 +1,40 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CustomerServiceResponseTexts.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CustomerServiceResponseTexts
+@using Pb.Wechat.CustomerServiceConversations.Dto
+@model CreateOrEditCustomerServiceResponseTextViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.ResponseType) : L("Create")))
+<style type="text/css">
+    .modal-dialog {
+        width: 800px;
+    }
+</style>
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+        <input type="hidden" id="MpID" name="MpID" value="@Model.MpID" />
+        <input type="hidden" id="MediaId" name="MediaId" value="@Model.MediaId" />
+
+        <input type="hidden" id="ReponseContentType" name="ReponseContentType" value="@Model.ReponseContentType" />
+        <input type="hidden" id="UseCount" name="UseCount" value="@Model.UseCount" />
+        <input type="hidden" id="TypeId" name="TypeId" value="@Model.TypeId" />
+        <input type="hidden" id="TypeName" name="TypeName" value="@Model.TypeName" />
+        <input type="hidden" id="ResponseType" name="ResponseType" value="@Model.ResponseType" />
+
+        <div class="form-group form-md-floating-label">
+            <label class="control-label">选择分类：</label>
+            <select class="form-control" id="sel_TypeDescription" class="form-control"></select>
+        </div>
+        <div class="form-group form-md-floating-label">
+            <label class="control-label">回复文案：</label>
+            <textarea class="form-control" rows="6" id="ResponseText" name="ResponseText">@Model.ResponseText</textarea>
+        </div>
+
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

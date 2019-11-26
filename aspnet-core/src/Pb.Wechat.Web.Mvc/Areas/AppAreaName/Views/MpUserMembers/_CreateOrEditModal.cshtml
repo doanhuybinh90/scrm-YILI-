@@ -1,0 +1,115 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpUserMembers.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpUserMembers
+@model CreateOrEditMpUserMemberViewModel
+
+@*@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.OpenID) : L("Create")))*@
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? ("查看") : "查看"))
+
+<style type="text/css">
+    .modal-dialog {
+        width: 800px;
+    }
+</style>
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+}
+        <div class="row">
+            <div class="col-md-6" class="form-group form-md-line-input form-md-floating-label">
+                <label for="Name">会员名称：@Model.MemberName</label>
+
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.MemberName" required maxlength="50">*@
+            </div>
+            <div class="col-md-6" class="form-group form-md-line-input form-md-floating-label">
+                <label for="Name">OpenID：@Model.OpenID</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.OpenID" required maxlength="50">*@
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6" class="form-group form-md-line-input form-md-floating-label">
+                <label for="Name">手机号:@Model.MobilePhone</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.MobilePhone" required maxlength="50">*@
+            </div>
+            <div class="col-md-6">
+                <label for="Name">关注时间:@Model.SubscribeTime</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.SubscribeTime" required maxlength="50">*@
+            </div>
+
+            @*<div class="col-md-6" class="form-group form-md-line-input form-md-floating-label">
+                <label for="Name">渠道来源:@Model.ServiceChannel</label>
+
+            </div>*@
+        </div>
+        <div class="row">
+
+            <div class="col-md-6" class="form-group form-md-line-input form-md-floating-label">
+                <label for="Name">宝宝姓名:@Model.BabyName</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.BabyName" required maxlength="50">*@
+            </div>
+            <div class="col-md-6">
+                <label for="Name">宝宝生日:@Model.BabyBirthday</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.BabyBirthday" required maxlength="50">*@
+            </div>
+        </div>
+        @*<div class="row">
+                <div class="col-md-6">
+                     <label for="Name">用户状态:@Model.MemberState</label>
+
+                 </div>
+
+        </div>*@
+        <div class="row">
+
+            <div class="col-md-6">
+                <label for="Name">注册时间:@Model.RegisterTime</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.RegisterTime" required maxlength="50">*@
+            </div>
+            <div class="col-md-6">
+                <label for="Name">绑定时间:@Model.BindingTime</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.BindingTime" required maxlength="50">*@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="Name">会员身份:@Model.MemberIdentity</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.MemberIdentity" required maxlength="50">*@
+            </div>
+            <div class="col-md-6">
+                <label for="Name">注册产品:@Model.RegistProduct</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.RegistProduct" required maxlength="50">*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="Name">喂养方式:@Model.FeedingMode</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.FeedingMode" required maxlength="50">*@
+            </div>
+            <div class="col-md-6">
+                <label for="Name">使用过的品牌:@Model.UsedBrand</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.UsedBrand" required maxlength="50">*@
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <label for="Name">服务门店:@Model.ServiceShop</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.ServiceShop" required maxlength="50">*@
+            </div>
+            <div class="col-md-6">
+                <label for="Name">偏好渠道:@Model.LikeChannel</label>
+                @*<input class="form-control edited" type="text" name="Name" value="@Model.LikeChannel" required maxlength="50">*@
+            </div>
+        </div>
+        <div class="row">
+
+
+        </div>
+    </form>
+</div>
+@*@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")*@

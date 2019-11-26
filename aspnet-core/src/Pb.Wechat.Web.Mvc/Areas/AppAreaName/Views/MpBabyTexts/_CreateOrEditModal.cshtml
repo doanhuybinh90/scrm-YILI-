@@ -1,0 +1,68 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpBabyTexts.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpBabyTexts
+@model CreateOrEditMpBabyTextViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit")) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+        <input type="hidden" id="MpID" name="MpID" value="@Model.MpID" />
+        <input type="hidden" id="BabyAge" name="BabyAge" value="@Model.BabyAge" />
+        <div>
+            <input type="checkbox" checked="checked" id="defaultValue" value="0">
+            <label for="defaultValue">默认文案</label>
+
+        </div>
+        <div class="typeDiv">
+            <span>
+                <label for="">宝宝年龄段</label>
+                @Html.DropDownListFor(
+          c => c.BabyTextType,
+          EnumHelper.GetEnum(typeof(BabyTextType)).Select(c => new SelectListItem() { Value = c.Item1, Text = c.Item2 }),
+          new
+          {
+              @class = "bs-select",
+              data_live_search = "true",
+              id = "BabyTextType"
+          })
+            </span>
+
+            <span id="unbornDiv" style="padding-left:20px;">
+                <input class="edited" type="text" id="UnbornWeek" name="UnbornWeek" value="@Model.UnbornWeek" maxlength="500">周
+            </span>
+            <span id="oneyearDiv" style="display:none;padding-left:20px;">
+                第<input class="edited" type="text" id="OneYearMonth" name="OneYearMonth" value="@Model.OneYearMonth" maxlength="500">个月
+                第<input class="edited" type="text" id="OneYearWeek" name="OneYearWeek" value="@Model.OneYearWeek" maxlength="500">周
+            </span>
+            <span id="overDiv" style="display:none;padding-left:20px;">
+                <input class="edited" type="text" id="OverYear" name="OverYear" value="@Model.OverYear" maxlength="500">岁
+                <input class="edited" type="text" id="OverMonth" name="OverMonth" value="@Model.OverMonth" maxlength="500">个月
+            </span>
+        </div>
+
+
+        @*<div class="form-group form-md-line-input form-md-floating-label">
+                <label for="BabyAge">宝宝周龄(填写数字，怀孕期按怀孕周数乘以-1填写，如怀孕5周则填-5；已出生宝宝按实际周龄填写，如出生5个月则填20)</label>
+                <input class="form-control edited" type="text" id="BabyAge" name="BabyAge" value="@Model.BabyAge" maxlength="500">
+            </div>*@
+
+        <div class="form-group form-md-floating-label">
+            <label for="BabyText">文案</label>
+            <textarea class="form-control edited" id="BabyText" name="BabyText" rows="4" required>@Model.BabyText</textarea>
+            @*<input class="form-control edited" type="text" name="BabyText" value="@Model.BabyText" required maxlength="500">*@
+        </div>
+
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+<script type="text/javascript">
+    var defaultValue = '@Model.BabyAge' === '-9999';
+    var id = '@Model.Id';
+
+</script>

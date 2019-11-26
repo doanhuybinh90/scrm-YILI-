@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <script src=http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js></script>
+    <title>伊利会员注册</title>
+    <link rel=stylesheet href=http://at.alicdn.com/t/font_568976_vpa4scbimp9zfr.css>
+    <link rel=stylesheet href="~/view-resources/Views/YiliBabyClub/css/reset.css?v=1.5" asp-append-version=true>
+    <link rel=stylesheet href="~/view-resources/Views/YiliBabyClub/css/reg.css?v=1.5" asp-append-version=true>
+    <script>
+        (function(){
+            var rootPath = '@ViewBag.RootPath';
+            var mallToken='@ViewBag.MallApiToken';
+	        var globalConfig = {
+		        APIURL: rootPath+'meichi/',
+		        TOKEN:mallToken,
+		        REGURL: rootPath+'yilibabyclub/registfromwx'
+	        }
+	        window.globalConfig = globalConfig;
+        })();
+    </script>
+    <link href="~/view-resources/Views/YiliBabyClub/css/app.cc6d1e7c7b1df132d2a5997a5ba3ee51.css" rel=stylesheet asp-append-version=true>
+</head>
+<body>
+    <div id=app></div>
+    <script type=text/javascript src="~/view-resources/Views/YiliBabyClub/js/manifest.40e3060fa117ae4b0793.js" asp-append-version=true></script>
+    <script type=text/javascript src="~/view-resources/Views/YiliBabyClub/js/vendor.40ce4f1e486067e3f377.js" asp-append-version=true></script>
+    <script type=text/javascript src="~/view-resources/Views/YiliBabyClub/js/app.68ec0bf0e02f43bc277f.js" asp-append-version=true></script>
+</body>
+</html>

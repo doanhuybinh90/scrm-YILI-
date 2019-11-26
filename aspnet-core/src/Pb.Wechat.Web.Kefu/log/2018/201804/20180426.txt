@@ -1,0 +1,10 @@
+
+ 
+记录时间：2018-04-26 17:26:27,878 
+线程ID:[6] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetSelfCustomerReport接口-接口报错:
+ 
+System.DivideByZeroException: 尝试除以零。
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetSelfCustomerReport>d__30.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 1526

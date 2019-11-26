@@ -1,0 +1,26 @@
+
+ 
+记录时间：2018-04-25 18:05:30,623 
+线程ID:[5] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetCommonReply接口-接口报错:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: collection
+   在 System.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   在 System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetCommonReply>d__5.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 207
+
+ 
+记录时间：2018-04-25 18:07:09,619 
+线程ID:[8] 
+日志级别：  ERROR 
+出错类：log property: [(null)] - 
+错误描述：GetCommonReply接口-接口报错:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: collection
+   在 System.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   在 System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   在 Pb.Wechat.Web.Kf.Controllers.KfApiController.<GetCommonReply>d__5.MoveNext() 位置 D:\Work\SCRM\scrm\aspnet-core\src\Pb.Wechat.Web.Kefu\Controllers\KfApiController.cs:行号 207

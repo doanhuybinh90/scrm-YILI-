@@ -1,0 +1,73 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CustomerServiceConversations.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CustomerServiceConversations
+@model CreateOrEditCustomerServiceConversationViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+		<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Id">Id</label>
+            <input class="form-control edited" type="text" name="Id" value="@Model.Id" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CreationTime">CreationTime</label>
+            <input class="form-control edited" type="text" name="CreationTime" value="@Model.CreationTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CreatorUserId">CreatorUserId</label>
+            <input class="form-control edited" type="text" name="CreatorUserId" value="@Model.CreatorUserId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CustomerId">CustomerId</label>
+            <input class="form-control edited" type="text" name="CustomerId" value="@Model.CustomerId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CustomerOpenId">CustomerOpenId</label>
+            <input class="form-control edited" type="text" name="CustomerOpenId" value="@Model.CustomerOpenId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="EndTalkTime">EndTalkTime</label>
+            <input class="form-control edited" type="text" name="EndTalkTime" value="@Model.EndTalkTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="FanId">FanId</label>
+            <input class="form-control edited" type="text" name="FanId" value="@Model.FanId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="FanOpenId">FanOpenId</label>
+            <input class="form-control edited" type="text" name="FanOpenId" value="@Model.FanOpenId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="LastConversationId">LastConversationId</label>
+            <input class="form-control edited" type="text" name="LastConversationId" value="@Model.LastConversationId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="LastModificationTime">LastModificationTime</label>
+            <input class="form-control edited" type="text" name="LastModificationTime" value="@Model.LastModificationTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="LastModifierUserId">LastModifierUserId</label>
+            <input class="form-control edited" type="text" name="LastModifierUserId" value="@Model.LastModifierUserId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="MpID">MpID</label>
+            <input class="form-control edited" type="text" name="MpID" value="@Model.MpID" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="StartTalkTime">StartTalkTime</label>
+            <input class="form-control edited" type="text" name="StartTalkTime" value="@Model.StartTalkTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="State">State</label>
+            <input class="form-control edited" type="text" name="State" value="@Model.State" required>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

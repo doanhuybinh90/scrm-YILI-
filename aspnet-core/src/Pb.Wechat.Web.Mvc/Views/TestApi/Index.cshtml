@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = "~/Views/Account/_Layout.cshtml";
+    ViewBag.DisableTenantChange = true;
+}
+@*<script type="text⁄javascript" src=" http://qiniu.mgcc.com.cn⁄wechat⁄js⁄base64.min.js " />
+
+<script type="text⁄javascript" src="http://res.wx.qq.com⁄open⁄js⁄jweixin-1.0.0.js" />*@
+<script type="text/javascript">
+
+    var mpid = '1';
+    var token = '123';
+    var share_pic = 'http://www.baidu.com/images/share.jpg';
+    var share_url;
+    var weChatUrlBase = 'http://yiliscrm3.mgcc.com.cn/MpApi/jssdkjsonp?mpid=' + mpid + '&callback=1234&urlmode=base64&callurl=';
+    var weChatUrl;
+    var sharetitle = "初始分享主标题";
+    var sharedesc = "初始分享副标题";
+
+    function getOAuth2() {
+        $.post($.post("getoauth2", {}, function (data) {
+            debugger;
+            window.location.href = "http://yiliscrm3.mgcc.com.cn/MpApi/OAuth2Base?mpid=" + mpid + "&token=" + token + "&reurl=" + data.result;
+
+        })
+
+    }
+
+    function getoauth2userinfo() {
+
+        $.post($.post("getoauth2userinfo", {}, function (data) {
+            window.location.href = "http://yiliscrm3.mgcc.com.cn/MpApi/OAuth2UserInfo?mpid=" + mpid + "&token=" + token + "&reurl=" + data.result;
+
+        })
+    }
+
+    function getJssdkJsonP() {
+
+        $.post($.post("getJssdkJsonP", {}, function (data) {
+            window.location.href = "http://yiliscrm3.mgcc.com.cn/MpApi/JssdkJsonP?mpid=" + mpid + "&token=" + token + "&callurl=" +data.result;
+
+        })
+    }
+</script>
+
+<div style="width:100%">
+
+    <a href="#" onclick="getOAuth2()" style="width:100px;height:50px;"> 测试oauth2静默接口</a><br />
+    <a href="#" onclick="getoauth2userinfo()" style="width:100px;height:50px;">测试oauth2授权接口</a><br />
+    <a href="http://yiliscrm3.mgcc.com.cn/TestApi/Index2" style="width:100px;height:50px;">测试跨域接口</a><br/>
+    <a href="http://yiliscrm3.mgcc.com.cn/TestApi/Index3" style="width:100px;height:50px;">测试非跨域接口</a>
+
+</div>
+<!--<button value="测试非跨域接口" onclick=""></button>-->

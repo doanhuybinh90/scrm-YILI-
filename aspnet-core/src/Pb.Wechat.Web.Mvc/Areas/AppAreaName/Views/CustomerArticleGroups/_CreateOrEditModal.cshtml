@@ -1,0 +1,55 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CustomerArticleGroups
+@model CreateOrEditCustomerArticleGroupViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+}
+        <input type="hidden" name="MpID" value="@Model.MpID" />
+        <input type="hidden" id="TypeId" name="TypeId" value="@Model.TypeId" />
+        <input type="hidden" id="TypeName" name="TypeName" value="@Model.TypeName" />
+
+        <div class="form-group form-row-seperated form-md-floating-label">
+            <label for="Name">名称</label>
+            <input class="form-control edited" type="text" id="Name" name="Name" value="@Model.Name" required maxlength="50">
+        </div>
+
+        <div class="form-group form-md-floating-label">
+            <label class="control-label">选择分类：</label>
+            <select class="form-control" id="sel_TypeDescription" class="form-control"></select>
+        </div>
+    </form>
+   
+
+    <div class="row margin-bottom-5">
+        <div class="col-md-8">
+            <table id="ArticlesTable" class="display table table-striped table-bordered table-hover dt-responsive">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>摘要</th>
+                        <th>链接</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table id="SelectedTable" class="display table table-striped table-bordered table-hover dt-responsive">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

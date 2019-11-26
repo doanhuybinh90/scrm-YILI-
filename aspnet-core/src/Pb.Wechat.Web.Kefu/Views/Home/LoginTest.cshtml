@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录hub测试</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <!--这里要注意,这是虚拟目录,也就是你在OWIN Startup中注册的地址-->
+    <script src="~/signalr/hubs"></script>
+</head>
+<body>
+    <div>
+        <div>登录token:<p id="logintoken"></p></div>
+        <div>用户信息:<p id="openid"></p></div>
+    </div>
+    <script type="text/javascript">
+            var Clients = [];
+            // 声明一个代理
+            var hubProxy = $.connection.loginHub;
+            $(function () {
+                hubProxy.client.getToken = function (token) {
+                    $("#logintoken").html(token);
+                };
+
+                hubProxy.client.sendLoginResult = function (state, messageToken) {
+                    $("#openid").html("state:" + state + " messageToken:" + messageToken);
+                };
+
+                // 启动 connection
+                $.connection.hub.start().done(function () {
+                    hubProxy.server.applyToken();
+                });
+            });
+    </script>
+
+</body>
+</html>

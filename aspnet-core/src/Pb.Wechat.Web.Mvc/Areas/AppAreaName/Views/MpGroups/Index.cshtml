@@ -1,0 +1,116 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.Authorization
+@using Pb.Wechat.MpGroups.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Startup
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpGroups
+@model MpGroupViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.MpGroups;
+}
+@section Styles{
+
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+    <link href="~/view-resources/Areas/AppAreaName/Views/MpGroups/jquery.treegrid.css" rel="stylesheet" />
+}
+@section Scripts
+    {
+
+    <environment names="Development">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpGroups/_CreateOrEditModal.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpGroups/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpGroups/_CreateOrEditModal.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpGroups/Index.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+
+    
+}
+<div class="row margin-bottom-5">
+    <div class="col-xs-6">
+        <div class="page-head">
+            <div class="page-title">
+                <h1>
+                    <span>分组管理</span> @*<small>管理公众号令牌信息</small>*@
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">
+
+        <button id="RefreshListButton" class="btn blue"><i class=" fa fa-refresh"></i> @L("Refresh")</button>
+    </div>
+</div>
+
+<div class="portlet light margin-bottom-0">
+    <div class="portlet-body">
+        <div class="form">
+            <form id="FilterForm" class="horizontal-form">
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject bold uppercase">
+                                群发分组
+                            </span>
+                        </div>
+                        <div class="actions">
+                            @if (IsGranted(AppPermissions.Pages_MpUserManagement_MpGroups))
+                            {
+
+                                <a id="AddGroupButton" class="btn btn-circle green-haze">
+                                    <i class="fa fa-plus"></i> 添加分组类别
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="MpGroupEditTree"></div>
+                        <div id="MpGroupTreeEmptyInfo" class="text-muted">
+                            尚无分组列表
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject bold uppercase">
+                                分组名称：<span id="SelectedOuRightTitle"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="editView">
+                            <div class="text-muted">
+                                尚未选择有效分组信息
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var selectId;
+    var OrganizeCityObj;
+    var LastBuyProductObj;
+    var OfficialCityObj;
+    var ChannelObj;
+    var MemberTypeObj;
+    var TagObj;
+</script>

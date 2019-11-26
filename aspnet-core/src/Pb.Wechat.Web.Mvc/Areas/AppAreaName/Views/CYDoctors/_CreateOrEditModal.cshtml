@@ -1,0 +1,65 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.CYDoctors.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.CYDoctors
+@model CreateOrEditCYDoctorViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+        }
+		<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Id">Id</label>
+            <input class="form-control edited" type="text" name="Id" value="@Model.Id" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CYId">CYId</label>
+            <input class="form-control edited" type="text" name="CYId" value="@Model.CYId" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Clinic">Clinic</label>
+            <input class="form-control edited" type="text" name="Clinic" value="@Model.Clinic" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="ClinicNO">ClinicNO</label>
+            <input class="form-control edited" type="text" name="ClinicNO" value="@Model.ClinicNO" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="CreationTime">CreationTime</label>
+            <input class="form-control edited" type="text" name="CreationTime" value="@Model.CreationTime" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="GoodAt">GoodAt</label>
+            <input class="form-control edited" type="text" name="GoodAt" value="@Model.GoodAt" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Hospital">Hospital</label>
+            <input class="form-control edited" type="text" name="Hospital" value="@Model.Hospital" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="HospitalGrand">HospitalGrand</label>
+            <input class="form-control edited" type="text" name="HospitalGrand" value="@Model.HospitalGrand" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Image">Image</label>
+            <input class="form-control edited" type="text" name="Image" value="@Model.Image" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="LevelTitle">LevelTitle</label>
+            <input class="form-control edited" type="text" name="LevelTitle" value="@Model.LevelTitle" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Name">Name</label>
+            <input class="form-control edited" type="text" name="Name" value="@Model.Name" required>
+        </div>
+<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Title">Title</label>
+            <input class="form-control edited" type="text" name="Title" value="@Model.Title" required>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

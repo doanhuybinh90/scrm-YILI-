@@ -1,0 +1,66 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.Authorization
+@using Pb.Wechat.MpMessages.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Startup
+@using Pb.Wechat.MpEvents.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMessages
+@model MpMessageViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.MpMessages;
+}
+
+@section Scripts
+    {
+    <script>
+        @Html.Raw(EnumHelper.GetEnumJson(typeof(MpMessageType)))
+        @Html.Raw(EnumHelper.GetIntEnumJson(typeof(MpMessageTaskState)))
+    </script>
+    <environment names="Development">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpMessages/_CreateOrEditModal.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpMessages/Index.js" asp-append-version="true"></script>
+
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpMessages/_CreateOrEditModal.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpMessages/Index.min.js" asp-append-version="true"></script>
+
+    </environment>
+}
+<div class="row margin-bottom-5">
+    <div class="col-xs-6">
+        <div class="page-head">
+            <div class="page-title">
+                <h1>
+                    <span>群发管理</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">
+        @*<button id="ExportListToExcelButton" class="btn green-haze"><i class="fa fa-file-excel-o"></i> @L("ExportToExcel")</button>*@
+        @if (IsGranted(AppPermissions.Pages_MpMessages))
+        {
+            <button id="CreateNewModelButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Create")</button>
+        }
+    </div>
+</div>
+
+<div class="portlet light margin-bottom-0">
+    <div class="portlet-body">
+        @*style="border:solid 1px #ccc;border-radius:15px;"*@
+        <div class="btn-group btn-group-lg btn-group-vertical-circle btn-group-circle">
+
+            <button id="allButton" type="button" class="btn btn-default" value="">全部</button>
+            <button id="textButton" type="button" class="btn btn-default" value="text">文字</button>
+            <button id="imageButton" type="button" class="btn btn-default" value="image">图片</button>
+            <button id="voiceButton" type="button" class="btn btn-default" value="voice">语音</button>
+            <button id="videoButton" type="button" class="btn btn-default" value="video">视频</button>
+            <button id="artButton" type="button" class="btn btn-default" value="mpnews">图文</button>
+            <button id="mulArtsButton" type="button" class="btn btn-default" value="mpmultinews">多图文</button>
+        </div>
+
+        <div id="partDataListView">
+        </div>
+    </div>
+</div>

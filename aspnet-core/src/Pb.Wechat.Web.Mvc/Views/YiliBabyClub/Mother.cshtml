@@ -1,0 +1,167 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>母爱产品</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="full-screen" content="yes">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="wap-font-scale" content="no">
+    <!-- 解决手机端UC旋转后文字变大的bug -->
+    <meta name="wap-font-scale" content="no">
+    <script>
+        (function (e) { var d = e.document, g = d.documentElement; var b = 1, c, w0 = 0; var ismc = /android|ios|iphone|ipod|mobile/i.test(navigator.userAgent); var maxw = ismc ? 1024 : 750; function f() { var w = g.getBoundingClientRect().width; if (w / b > maxw) { w = maxw * b; } if (w0 != w) { w0 = w; g.style.fontSize = (w / 10) + "px"; } } function a() { clearTimeout(c); c = setTimeout(f, 300); } e.addEventListener("resize", a, false); e.addEventListener("pageshow", function (h) { h.persisted && a(); }, false); if (d.readyState === "complete") { d.body.style.fontSize = 12 * b + "px"; } else { d.addEventListener("DOMContentLoaded", function (h) { d.body.style.fontSize = 12 * b + "px"; }, false); } f(); })(window);
+        var rootPath = '@ViewBag.RootPath';
+        var _config = {
+            api: rootPath + 'YiliBabyClub/GetProductinfos',
+        }
+    </script>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/view-resources/views/YiliBabyClub/mother/dist/mc/bundle.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/view-resources/views/YiliBabyClub/mother/dist/muying/bundle.css" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/view-resources/views/YiliBabyClub/mother/dist/mc/bundle.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/view-resources/views/YiliBabyClub/mother/dist/muying/bundle.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <div class="body">
+        <div class="head-area">
+            <div class="tab" data-tabs="#area1,#area2">
+                <a href="javascript:;" class="btn-l" data-tab="#area1"></a>
+                <a href="javascript:;" class="btn-r" data-tab="#area2"></a>
+                <div class="tab-l"></div>
+                <div class="tab-r"></div>
+            </div>
+        </div>
+        <div class="tab-area">
+            <div class="area-l" id="area1">
+                <div class="ten-bg">
+                    <div class="line"></div>
+                    <p><em>1</em>母乳营养丰富，有丰富而易吸收的蛋白质、脂肪和糖类。母乳含蛋白多、酪蛋白少，易被消化吸收；母乳中的脂肪为不饱和脂肪酸，营养价值高。颗粒小，有利于消化与吸收；母乳中乳糖含量多，有利于乳酸杆菌生长。</p>
+                    <p><em>2</em>母乳含钙丰富，钙、磷比例合适（2：1），容易吸收，较少发生低钙血症。</p>
+                    <p><em>3</em>母乳在胃内停留时间较牛奶短，有利于消化。</p>
+                    <p><em>4</em>母乳含铁虽不多，但很容易被吸收利用。母乳铁利用率达到50%。</p>
+                    <p><em>5</em>母乳温度适宜、清洁无菌，故母乳喂养婴儿很少发生腹泻</p>
+                    <p><em>6</em>母亲自己喂哺，有利于增进母子感情，密切观察婴儿细微变化，随时照顾护理。</p>
+                    <p><em>7</em>母乳中有很多增强免疫力的成分，可使婴儿免得某些疾病。</p>
+                    <p><em>8</em>母乳中含有一种双岐因子，它有助于婴儿肠道内乳酸杆菌的生长，阻止有害菌的生长，从而预防腹泻的发生</p>
+                    <p><em>9</em>母乳喂养婴儿很少发生便秘。</p>
+                    <p><em>10</em>母乳喂养还可刺激母亲子宫收缩，促其早日恢复。哺乳母亲也较少发生乳腺癌。</p>
+                </div>
+                <div class="summary">
+                    <p>要根据中国的母乳来研究中国婴儿、幼儿发育特点的产品。我们把母乳比喻成“金标准”，然后在“金标准”的基础上来研究开发，伊利母婴营养研究中心在这方面的工作，对于指导和引导我们将来奶粉的发展做出了贡献。有助于提高中国婴幼儿奶粉的健康发展。</p>
+                    <p>--伊利母婴营养研究中心首席研究员 云战友博士</p>
+                </div>
+                <img class="result1" src="~/view-resources/views/YiliBabyClub//mother/img/muying/result1.jpg" alt="">
+                <div class="result2">
+                    <!--
+                        <span>α+β专利蛋白组</span>
+                        <span>OPO结构脂</span>
+                        <span>DHA</span>
+                        <span>益生元益生菌</span>
+                        <span>核苷酸</span>
+                        <span>矿物质</span>
+                    -->
+                    <p>
+                        1、特含有α+ β<sup>®</sup>创新蛋白组合；
+    <br> 2、BID<sup>®</sup>复合益生菌：来源于美国杜邦丹尼斯克乳双歧杆菌HN019和丹麦科汉森动物双歧杆菌Bb-12组合；
+    <br> 3、膳食纤维（GOS/FOS）：有助于维持正常的肠道功能；
+    <br> 4、含智赋<sup>®</sup>：DHA和胆碱等多种营养成份。
+</p>
+                </div>
+
+                <div class="big-things">
+                    <span>
+                        携手中国关心下一代工作委员会
+                        <br>儿童研究发展中心与10大医院推出中国母乳库推广项目
+                    </span>
+                    <span>荣获中国奶粉中国专利优秀奖</span>
+                    <span>发布婴幼儿临床报告，成立婴语专家团</span>
+                    <span>首部《中国母乳研究白皮书》发布</span>
+                    <span>
+                        成功研制出伊利金领冠
+                        <br>婴幼儿配方奶粉并上市
+                    </span>
+                    <span>母乳研究数据库建成</span>
+                    <span>七个城市，采集母乳样本</span>
+                    <span>启动中国母乳的自主研究项目</span>
+                </div>
+            </div>
+            <div class="area-r" id="area2">
+
+            </div>
+        </div>
+    </div>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/view-resources/views/YiliBabyClub/mother/third/mustache-v2.3.0.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/views/YiliBabyClub/mother/dist/mc/bundle.js" asp-append-version="true"></script>
+        <script src="~/view-resources/views/YiliBabyClub/mother/dist/muying/bundle.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/view-resources/views/YiliBabyClub/mother/third/mustache-v2.3.0.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/views/YiliBabyClub/mother/dist/mc/bundle.js" asp-append-version="true"></script>
+        <script src="~/view-resources/views/YiliBabyClub/mother/dist/muying/bundle.js" asp-append-version="true"></script>
+    </environment>
+    <script type="text/plain" id="productHtml" charset="utf-8">
+        {{#result}}
+        <div class="pl">
+            <div class="pl-product">
+                <img src="{{filePathOrUrl}}">
+                <div class="title">{{typeTitle}}</div>
+                <a href="javascript:;" class="more-l">查看更多<span></span></a>
+            </div>
+            {{#productList}}
+            <div class="ph">
+                <div class="product">
+                    <img src="{{filePathOrUrl}}" alt="">
+                    <div class="title">{{title}}</div>
+                    <div class="subtitle">{{subTitle}}</div>
+                    <a href="javascript:;" class="more" data-trace="more">
+                        了解更多
+                        <span></span>
+                    </a>
+                    <div class="hr"></div>
+                    <span class="ltitle">产品介绍</span>
+                    <p class="introduce">{{productIntroduce}}</p>
+                </div>
+                <div class="formula">
+                    <span class="ltitle">功能及配方</span>
+                    <p>{{{productFormulations}}}</p>
+                </div>
+            </div>
+            {{/productList}}
+        </div>
+        {{/result}}
+
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?a41a69a3f31619a29d9fb3a97ea2de1d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</body>
+
+</html>

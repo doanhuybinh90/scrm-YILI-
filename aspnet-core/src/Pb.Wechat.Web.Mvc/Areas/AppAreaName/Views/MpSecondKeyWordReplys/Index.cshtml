@@ -1,0 +1,93 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.Authorization
+@using Pb.Wechat.MpEvents.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Startup
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpSecondKeyWordReplys
+@model MpSecondKeyWordReplyViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.MpKeyWordReplys;
+}
+@section Styles
+    {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/view-resources/Areas/AppAreaName/Views/MpSecondKeyWordReplys/Index.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/view-resources/Areas/AppAreaName/Views/MpSecondKeyWordReplys/Index.min.css" asp-append-version="true" />
+    </environment>
+}
+@section Scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSecondKeyWordReplys/_CreateOrEditModal.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSecondKeyWordReplys/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSecondKeyWordReplys/_CreateOrEditModal.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/AppAreaName/Views/MpSecondKeyWordReplys/Index.min.js" asp-append-version="true"></script>
+    </environment>
+    <script type="text/javascript">
+         @Html.Raw(EnumHelper.GetEnumJson(typeof(MpMessageType)))
+    </script>
+}
+<div class="row margin-bottom-5">
+    <div class="col-xs-6">
+        <div class="page-head">
+            <div class="page-title">
+                <h1>
+                    <span>关键字二级回复</span> <small>@Model.KeyWord</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">
+        @if (IsGranted(AppPermissions.Pages_ReplyManagement_MpKeyWordReplys))
+        {
+            <button id="CreateNewModelButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Create")</button>
+        }
+    </div>
+</div>
+
+<div class="portlet light margin-bottom-0">
+    <div class="portlet-body">
+        <div class="form">
+            <form id="FilterForm" class="horizontal-form">
+                <input type="hidden" name="ParentId" value="@Model.ParentId" />
+                <input type="hidden" name="MpID" value="@Model.MpID" />
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">关键字</label>
+                                <input type="text" name="Keyword" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="AdvacedAuditFiltersArea" style="display: none">
+                    </div>
+                </div>
+                <div class="row margin-bottom-10">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <button id="ExportListToExcelButton" class="btn green-haze"><i class="fa fa-file-excel-o"></i> @L("ExportToExcel")</button>
+                        <button id="RefreshListButton" class="btn blue"><i class=" fa fa-refresh"></i> @L("Search")</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table id="FormTable" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+            <thead>
+                <tr>
+                    <th>@L("Actions")</th>
+                    <th>关键字</th>
+                    <th>回复类型</th>
+                    <th>回复内容（素材名称）</th>
+                    <th>最后更新时间</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

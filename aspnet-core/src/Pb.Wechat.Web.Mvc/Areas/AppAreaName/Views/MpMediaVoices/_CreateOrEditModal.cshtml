@@ -1,0 +1,43 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpMediaVoices
+@model CreateOrEditMpMediaVoiceViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Title) : L("Create")))
+
+<div class="modal-body">
+    @*<form name="DataForm" role="form" novalidate class="form-validation">
+      
+
+    </form>*@
+    <form id="UploadPicModalForm" method="POST" action="@(AppConsts.MvcAppPath +"AppAreaName/MpMediaVoices/SaveAndUpdate")">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+}
+        <input type="hidden" name="MpID" value="@Model.MpID" />
+        <input type="hidden" id="MediaID" name="MediaID" value="@Model.MediaID" />
+        <input type="hidden" id="FileID" name="FileID" value="@Model.FileID" />
+        <input type="hidden" id="FilePathOrUrl" name="FilePathOrUrl" value="@Model.FilePathOrUrl" />
+
+        <div class="form-group form-row-seperated form-md-floating-label">
+            <label for="Name">标题</label>
+            <input class="form-control edited" type="text" id="Title" name="Title" value="@Model.Title" required maxlength="50">
+        </div>
+        <div class="form-group form-row-seperated form-md-floating-label">
+            <label for="Name">描述</label>
+            <input class="form-control edited " type="text" id="Description" name="Description" value="@Model.Description" required maxlength="500">
+        </div>
+        <div class="form-group">
+            <input type="file" id="MediaVoice" name="UploadPic" />
+            <div class="form-group form-md-floating-label">
+                <audio id="audio" controls="controls" src="@Model.FilePathOrUrl" style="width:100%;"></audio>
+            </div>
+           
+            <span class="help-block m-b-none">语音内容：格式支持mp3、wma、wav，文件大小不超过5M，语音时长不超过60秒。</span>
+        </div>
+    </form>
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

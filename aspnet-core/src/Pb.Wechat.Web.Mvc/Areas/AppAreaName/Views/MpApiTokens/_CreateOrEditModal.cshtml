@@ -1,0 +1,54 @@
+﻿@using Pb.Wechat
+@using Pb.Wechat.MpApiTokens.Dto
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat.Web.Areas.AppAreaName.Models.MpApiTokens
+@model CreateOrEditMpApiTokenViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("Edit") + ": " + Model.Name) : L("Create")))
+
+<div class="modal-body">
+    <form name="DataForm" role="form" novalidate class="form-validation">
+        @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+}
+        <input type="hidden" name="ParentId" value="@Model.ParentId" />
+        <input type="hidden" name="StartTime" value="@Model.StartTime" />
+        @*<input type="hidden" name="EndTime" value="@Model.EndTime" />*@
+
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Name">名称</label>
+            <input class="form-control edited" type="text" name="Name" value="@Model.Name" required maxlength="50">
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Token">令牌</label>
+            <input class="form-control edited" type="text" name="Token" value="@Model.Token" required maxlength="200">
+        </div>
+        <div class="form-group">
+            <label for="Type">类型</label>
+            @Html.DropDownListFor(
+                 c => c.ApiType,
+                 EnumHelper.GetEnum(typeof(MpApiTokenType)).Select(c => new SelectListItem() { Value = c.Item1, Text = c.Item2 }),
+                 new
+                 {
+                     @class = "form-control bs-select",
+                     data_live_search = "true",
+                     id = "Type"
+                 })
+        </div>
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="Domain">域名</label>
+            <input class="form-control edited" type="text" name="Domain" value="@Model.Domain" required maxlength="50">
+        </div>
+        @*<div class="form-group form-md-line-input form-md-floating-label">
+            <label for="StartTime">有效期</label>
+            <input type="text" name="DateRange" class="form-control date-range-picker">
+        </div>*@
+
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <label for="EndTime">截止日期</label>
+            <input type="datetime" name="EndTime" id="EndTime" value="@Model.EndTime" class="form-control date-picker">
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

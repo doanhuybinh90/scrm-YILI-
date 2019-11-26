@@ -1,0 +1,15 @@
+﻿@using Pb.Wechat.Web.Areas.AppAreaName.Models.Common.Modals
+@using Pb.Wechat
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ChangeProfilePicture")))
+
+<div class="modal-body">
+    <form id="ChangeProfilePictureModalForm" method="POST" action="@(AppConsts.MvcAppPath + "Profile/UploadProfilePicture")">
+        <div class="form-group">
+            <input type="file" name="ProfilePicture" />
+            <span class="help-block m-b-none">@L("ProfilePicture_Change_Info")</span>
+        </div>
+    </form>
+    <img id="ProfilePictureResize" src="" />
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
